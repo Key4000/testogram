@@ -10,12 +10,12 @@
 const ApiError = require('../error/ApiError')
 
 //модели для запросов к ним 
-const { Publication, User } = require('../models/models')
+const { Publication } = require('../models/models')
 
 
 //генерирует случайные id , которые не повторяются 
 const uuid = require('uuid')
-const uuid = require('path')
+const path = require('path')
 
 
 //----------Контроллеры--------------

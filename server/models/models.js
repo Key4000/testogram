@@ -38,13 +38,13 @@ const Subscription = sequelize.define('subscriber', {
 
 //Модель комментария 
 const Comment = sequelize.define('comment', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   text: {type: DataTypes.STRING, allowNull: false}
 })
 
 //Модель лайка 
 const Like = sequelize.define('like', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   isClick: {type: DataTypes.BOOLEAN, allowNull: false}
 })
 

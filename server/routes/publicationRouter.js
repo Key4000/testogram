@@ -9,7 +9,7 @@
 const Router = require('express')
 const router = new Router()
 //Подключаем контроллер с функциями(логикой)
-const userController =  require('../controllers/publicationController')
+const publicationController =  require('../controllers/publicationController')
 
 //------------Маршруты-----------------
 
