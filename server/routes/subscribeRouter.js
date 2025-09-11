@@ -10,18 +10,20 @@ const Router = require('express')
 const router = new Router()
 //Подключаем контроллер с функциями(логикой)
 
-const subscriptionController =  require('../controllers/subscriptionController')
+const subscribeController =  require('../controllers/subscribeController')
 
 //------------Маршруты-----------------
 
-//получение всех подписок пользователя
-router.get('/', subscriptionController.getAll)
+//получить все подписки пользователя
+router.get('/subscription', subscribeController.getSubscription)
+//получить всех подписчиков пользователя  
+router.get('/subscriber', subscribeController.getSubscriber)
+//добавление пользователю подписки на другого пользователя 
+router.post('/', subscribeController.add)
 
-//добавление подписки пользователю
-router.post('/', subscriptionController.add)
 
 //получение одного подписки пользователя
-router.get('/:id', subscriptionController.getOne)
+// router.get('/:id', subscriptionController.getOne)
 
 
 module.exports = router

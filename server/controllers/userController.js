@@ -17,9 +17,9 @@ const { User } = require('../models/models')
 const jwt = require('jsonwebtoken')
 
 
-const generateJwt = (id, email, role) => {
+const generateJwt = (id, email) => {
     return jwt.sign(
-        { id, email, role },
+        { id, email},
         process.env.SECRET_KEY,
         { expiresIn: '24h'}
     )
@@ -30,7 +30,7 @@ class UserController {
 
     //регистрация 
     async registration(req, res, next) {
-        const { email, password, role } = req.body
+        const { email, password } = req.body
         //если пароля и емейла нету
         if (!email || !password) {
             return next(ApiError.badRequest('Некорректный email или password'))
@@ -45,11 +45,11 @@ class UserController {
         const hashPassword = await bcrypt.hash(password, 5)
 
         //создаем пользователя
-        const user = await User.create({ email, role, password: hashPassword })
+        const user = await User.create({ email, password: hashPassword })
         
         
         //генерируем токен
-        const token = generateJwt(user.id, user.email, user.role)
+        const token = generateJwt(user.id, user.email)
 
         return res.json({ token })
     }
@@ -72,7 +72,7 @@ class UserController {
         }
 
         //генерируем jwt токен userid basketid
-        const token = generateJwt(user.id, user.email, user.role)
+        const token = generateJwt(user.id, user.email)
 
         //возвращаем json
         return res.json({ token })
@@ -80,7 +80,7 @@ class UserController {
 
     //функция сводится к перезаписи токена
     async check(req, res) {
-        const token = generateJwt(req.user.id, req.user.email, req.user.role)
+        const token = generateJwt(req.user.id, req.user.email)
         return res.json({token})
     }
 
