@@ -83,6 +83,15 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email)
         return res.json({token})
     }
+    //получить фото профиля
+    async getImg(req, res) {
+
+        const {id} = req.query
+
+        const img = await User.findOne({ where: { id } }) 
+
+        return img
+    } 
 
 
 }
