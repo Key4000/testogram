@@ -90,7 +90,7 @@ class UserController {
 
         const img = await User.findOne({ where: { id } }) 
 
-        return img
+        return res.json(img)
     } 
 
 
