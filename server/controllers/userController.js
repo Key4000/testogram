@@ -83,6 +83,7 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email)
         return res.json({token})
     }
+
     //получить фото профиля
     async getImg(req, res) {
 
@@ -92,6 +93,16 @@ class UserController {
 
         return res.json(img)
     } 
+
+    //получить всех пользователей по name
+    async getAll(req, res) {
+
+        const {name} = req.query
+
+        const users = await User.findAndCountAll({ where: { name } }) 
+
+        return res.json(users)
+    }  
 
 
 }
