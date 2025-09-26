@@ -99,22 +99,11 @@ class UserController {
 
         const user = await User.findOne({ where: { id } }) 
 
-        const img = user.img
+        const img = user.get('img') 
 
-        console.log('img - ', img)
-
-        return res.json(img)
+        return res.json({ avatar: img })
     } 
-
-    //получить всех пользователей по name
-    async getAll(req, res) {
-
-        const {name} = req.query
-
-        const users = await User.findAndCountAll({ where: { name } }) 
-
-        return res.json(users)
-    }  
+ 
 
 
 }
