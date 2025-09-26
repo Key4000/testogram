@@ -30,12 +30,14 @@ const Publication = sequelize.define('publication', {
 const Subscriber = sequelize.define('subscriber', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
   name: {type: DataTypes.STRING},
+  subId: {type: DataTypes.INTEGER}
 })
 
 //Модель подписок
 const Subscription = sequelize.define('subscriber', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
   name: {type: DataTypes.STRING},
+  subId: {type: DataTypes.INTEGER}
 })
 
 //Модель комментария 
