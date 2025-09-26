@@ -95,9 +95,13 @@ class UserController {
     //получить фото профиля
     async getImg(req, res) {
 
-        const {id} = req.query
+        const { id } = req.params 
 
-        const img = await User.findOne({ where: { id } }) 
+        const user = await User.findOne({ where: { id } }) 
+
+        const img = user.img
+
+        console.log('img - ', img)
 
         return res.json(img)
     } 
