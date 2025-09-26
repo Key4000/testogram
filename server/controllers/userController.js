@@ -99,9 +99,9 @@ class UserController {
 
         const user = await User.findOne({ where: { id } }) 
 
-        const img = user.get('img') 
+        const avatar = user.get('img') 
 
-        return res.json({ avatar: img })
+        return res.json({ img : avatar })
     } 
  
 
