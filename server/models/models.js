@@ -29,13 +29,13 @@ const Publication = sequelize.define('publication', {
 //Модель подписчиков
 const Subscriber = sequelize.define('subscriber', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
-  subsName: {type: DataTypes.STRING},
+  name: {type: DataTypes.STRING},
 })
 
 //Модель подписок
 const Subscription = sequelize.define('subscriber', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
-  subsName: {type: DataTypes.STRING},
+  name: {type: DataTypes.STRING},
 })
 
 //Модель комментария 
