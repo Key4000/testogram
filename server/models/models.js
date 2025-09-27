@@ -49,7 +49,7 @@ const Comment = sequelize.define('comment', {
 //Модель лайка 
 const Like = sequelize.define('like', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  isClick: {type: DataTypes.BOOLEAN, allowNull: false}
+  whomId: {type: DataTypes.INTEGER}
 })
 
 // *********************************************************
