@@ -104,6 +104,16 @@ class UserController {
         return res.json({ img : avatar })
     } 
  
+    //получить имя пользователя по id 
+    async getName(req, res) {
+
+        const { id } = req.params 
+
+        const user = await User.findOne({ where: { id } }) 
+
+        const userName = user.get('name') 
+
+        return res.json({ name: userName }) 
 
 
 }
