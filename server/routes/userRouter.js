@@ -23,6 +23,8 @@ router.post('/login', userController.login)
 router.get('/auth', authMiddleware, userController.check)
 //получить картинку профиля
 router.get('/img', userController.getImg)
+//получить пользователя по id
+router.get('/:id', userController.getOne)
 
 
 
