@@ -44,6 +44,7 @@ const Subscription = sequelize.define('subscriber', {
 const Comment = sequelize.define('comment', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
   text: {type: DataTypes.STRING, allowNull: false}
+  whomId: {type: DataTypes.INTEGER}
 })
 
 //Модель лайка 
