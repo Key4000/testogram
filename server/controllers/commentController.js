@@ -26,9 +26,9 @@ class CommentController {
 
   //добавление комментария публикации 
   async add(req, res) {
-    const { publicationId, text, userId } = req.body
+    const { publicationId, text, userId, whomId } = req.body
 
-    const comment = await Comment.create({ publicationId, text, userId })
+    const comment = await Comment.create({ publicationId, text, userId, whomId})
 
     return res.json(comment)
   }
