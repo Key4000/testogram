@@ -15,7 +15,7 @@ class CommentController {
 
   //получение всех комментов публикации 
   async getAll(req, res) {
-    const { publicationId } = req.query
+    const { publicationId } = req.params
 
     const comments = await Comment.findAndCountAll({
       where: { publicationId }
@@ -24,26 +24,16 @@ class CommentController {
     return res.json(comments)
   }
 
-  //добавление подписчика пользователю
+  //добавление комментария публикации 
   async add(req, res) {
-    const { publicationId } = req.body
+    const { publicationId, text, userId } = req.body
 
-    const comment = await Comment.create({ publicationId })
-
-    return res.json(comment)
-  }
-
-  //получение одного подписчика пользователя
-  async getOne(req, res) {
-    //id подписчика 
-    const { id } = req.params
-
-    const comment = await Comment.findOne({
-      where: { id }
-    })
+    const comment = await Comment.create({ publicationId, text, userId })
 
     return res.json(comment)
   }
+
+  
 }
 
 module.exports = new CommentController()
