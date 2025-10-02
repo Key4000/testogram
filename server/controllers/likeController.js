@@ -13,37 +13,27 @@ const { Like } = require('../models/models')
 //----------Контроллеры--------------
 class LikeController {
   
-  //получение всех комментов публикации 
+  //получение всех лайков пользователя 
   async getAll(req, res){
-    const { publicationId } = req.query
+    const { whomId } = req.query
     
-    const like = await Like.findAll({
-        where: { publicationId }
+    const like = await Like.findAndCountAll({
+        where: { whomId }
     })
     
     return res.json(like)
   }
   
-  //добавление подписчика пользователю
+  //добавление лайка к посту 
   async add(req, res){
-    const { publicationId } = req.body
+    const { publicationId, whomId, userId} = req.body
     
-    const like = await Like.create({ publicationId })
+    const like = await Like.create({ publicationId, whomId, userId })
     
     return res.json(like)
   }
   
-  //получение одного подписчика пользователя
-  async getOne(req , res){
-    //id подписчика 
-    const { id } = req.params
-    
-    const like = await Like.findOne({
-       where: { id }
-    })
-    
-    return res.json(like)
-  }
+  
 }
 
 module.exports = new LikeController()

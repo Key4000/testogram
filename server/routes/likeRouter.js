@@ -14,14 +14,12 @@ const likeController =  require('../controllers/likeController')
 
 //------------Маршруты-----------------
 
-//получение всех комментов публикации
+//получение всех лайков пользователя
 router.get('/', likeController.getAll)
 
-//добавление коммента публикации 
+//добавление лайка к посту 
 router.post('/', likeController.add)
 
-//получение одного коммента публикации 
-router.get('/:id', likeController.getOne)
 
 
 module.exports = router
