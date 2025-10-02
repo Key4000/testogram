@@ -37,12 +37,12 @@ class UserController {
             return next(ApiError.badRequest('Некорректный email или password'))
         }
         //проверить если такой емейл есть
-        const candidate = await User.findOne({ where: { email } })
+        let candidate = await User.findOne({ where: { email } })
         if (candidate) {
             return next(ApiError.badRequest('Пользователь с таким email уже существует'))
         }
         //проверить если такое имя есть
-        const candidate = await User.findOne({ where: { name } })
+        candidate = await User.findOne({ where: { name } })
         if (candidate) {
             return next(ApiError.badRequest('Пользователь с таким именем уже существует'))
       } 
