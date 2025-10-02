@@ -27,7 +27,7 @@ class PublicationController {
       const { userId } = req.query
      
       //отправляем запрос в бд 
-      const publications = await Publication.findAll({
+      const publications = await Publication.findAndCountAll({
          where: { userId }
       })
      

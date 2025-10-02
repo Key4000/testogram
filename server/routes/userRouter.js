@@ -21,6 +21,11 @@ router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 //проверка авторизации пользователя
 router.get('/auth', authMiddleware, userController.check)
+//получить картинку профиля
+router.get('/getImg', userController.getImg)
+//получить всех пользователей по name 
+router.get('/', userController.getAll)
+
 
 
 
