@@ -95,22 +95,25 @@ class UserController {
     //получить фото профиля
     async getImg(req, res) {
 
-        const {id} = req.query
+        const { id } = req.params 
 
-        const img = await User.findOne({ where: { id } }) 
+        const user = await User.findOne({ where: { id } }) 
 
-        return res.json(img)
+        const avatar = user.get('img') 
+
+        return res.json({ img : avatar })
     } 
+ 
+    //получить имя пользователя по id 
+    async getName(req, res) {
 
-    //получить всех пользователей по name
-    async getAll(req, res) {
+        const { id } = req.params 
 
-        const {name} = req.query
+        const user = await User.findOne({ where: { id } }) 
 
-        const users = await User.findAndCountAll({ where: { name } }) 
+        const userName = user.get('name') 
 
-        return res.json(users)
-    }  
+        return res.json({ name: userName }) 
 
 
 }

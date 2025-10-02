@@ -1,6 +1,6 @@
 // ***********************************************
 
-//  роутер комментариев
+//  роутер подписчика
 
 // ***********************************************
 //----------Подключения--------------
@@ -10,17 +10,14 @@ const Router = require('express')
 const router = new Router()
 //Подключаем контроллер с функциями(логикой)
 
-const commentController =  require('../controllers/commentController')
+const subscriberController =  require('../controllers/subscriberController')
 
 //------------Маршруты-----------------
 
-//получение всех комментов публикации
-router.get('/:publicationId', commentController.getAll)
-
-//добавление коммента публикации 
-router.post('/', commentController.add)
-
-
+//получить всех подписчиков
+router.get('/', subscriberController.getAll)
+//добавление подписчика
+router.post('/', subscriberController.add)
 
 
 module.exports = router
