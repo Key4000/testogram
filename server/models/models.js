@@ -12,10 +12,10 @@ const {DataTypes} = require('sequelize')
 //Модель пользователя 
 const User = sequelize.define('user', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  email: {type: DataTypes.STRING, unique: true, allowNull: false},
-  password: {type: DataTypes.STRING, allowNull: false},
-  name: {type: DataTypes.STRING, unique: true, allowNull: false},
-  img: {type: DataTypes.STRING }, 
+  email: {type: DataTypes.STRING, unique: true, },
+  password: {type: DataTypes.STRING,},
+  name: {type: DataTypes.STRING, unique: true, },
+  img: {type: DataTypes.STRING, allowNull: false}, 
 })
 
 //Модель публикации 
@@ -26,24 +26,31 @@ const Publication = sequelize.define('publication', {
   text: {type: DataTypes.STRING}
 })
 
-//Модель подписок
-const Subscribe = sequelize.define('subscribe', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  subscribeId: {type: DataTypes.INTEGER, allowNull: false}
-
+//Модель подписчиков
+const Subscriber = sequelize.define('subscriber', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+  name: {type: DataTypes.STRING},
+  subId: {type: DataTypes.INTEGER}
 })
 
+//Модель подписок
+const Subscription = sequelize.define('subscriber', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
+  name: {type: DataTypes.STRING},
+  subId: {type: DataTypes.INTEGER}
+})
 
 //Модель комментария 
 const Comment = sequelize.define('comment', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  text: {type: DataTypes.STRING, allowNull: false}
+  text: {type: DataTypes.STRING, allowNull: false}, 
+  whomId: {type: DataTypes.INTEGER}
 })
 
 //Модель лайка 
 const Like = sequelize.define('like', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  isClick: {type: DataTypes.BOOLEAN, allowNull: false}
+  whomId: {type: DataTypes.INTEGER}
 })
 
 // *********************************************************
@@ -65,8 +72,12 @@ User.hasOne(Comment)
 Comment.belongsTo(User)
 
 //Пользователь - Подписчик (Один ко многим)
-User.hasMany(Subscribe)
-Subscribe.belongsTo(User)
+User.hasMany(Subscriber)
+Subscriber.belongsTo(User)
+
+//Пользователь - Подписка (Один ко многим)
+User.hasMany(Subscription)
+Subscription.belongsTo(User)
 
 //Пользователь - Публикация(Один ко многим)
 User.hasMany(Publication)
@@ -85,10 +96,11 @@ module.exports = {
   Publication ,
   Like,
   Comment, 
-  Subscribe,
+  Subscriber,
+  Subscription
 }
 
 
 
 
-
+ 
