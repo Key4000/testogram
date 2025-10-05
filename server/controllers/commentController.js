@@ -17,7 +17,7 @@ class CommentController {
   async getAll(req, res) {
     const { publicationId } = req.params
 
-    const comments = await Comment.findAndCountAll({
+    const comments = await Comment.findAll({
       where: { publicationId }
     })
 
