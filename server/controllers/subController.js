@@ -24,7 +24,7 @@ class SubController {
     return res.json(subscriber)
   }
 
-  //получить всех подписчиков
+  //получить все подписки
   async getAllScription(req, res) {
     const { userId } = req.query
 
