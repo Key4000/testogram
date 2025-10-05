@@ -15,7 +15,7 @@ const User = sequelize.define('user', {
   email: {type: DataTypes.STRING, unique: true, },
   password: {type: DataTypes.STRING,},
   name: {type: DataTypes.STRING, unique: true, },
-  img: {type: DataTypes.STRING, allowNull: false}, 
+  img: {type: DataTypes.STRING}, 
 })
 
 //Модель публикации 
@@ -26,19 +26,12 @@ const Publication = sequelize.define('publication', {
   text: {type: DataTypes.STRING}
 })
 
-//Модель подписчиков
-const Subscriber = sequelize.define('subscriber', {
+//Модель подписки
+const Sub = sequelize.define('sub', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: {type: DataTypes.STRING},
   subId: {type: DataTypes.INTEGER}
 })
 
-//Модель подписок
-const Subscription = sequelize.define('subscriber', {
-  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  name: {type: DataTypes.STRING},
-  subId: {type: DataTypes.INTEGER}
-})
 
 //Модель комментария 
 const Comment = sequelize.define('comment', {
@@ -72,12 +65,8 @@ User.hasOne(Comment)
 Comment.belongsTo(User)
 
 //Пользователь - Подписчик (Один ко многим)
-User.hasMany(Subscriber)
-Subscriber.belongsTo(User)
-
-//Пользователь - Подписка (Один ко многим)
-User.hasMany(Subscription)
-Subscription.belongsTo(User)
+User.hasMany(Sub)
+Sub.belongsTo(User)
 
 //Пользователь - Публикация(Один ко многим)
 User.hasMany(Publication)
@@ -96,8 +85,7 @@ module.exports = {
   Publication ,
   Like,
   Comment, 
-  Subscriber,
-  Subscription
+  Sub
 }
 
 

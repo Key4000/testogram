@@ -15,6 +15,9 @@ const bcrypt = require('bcrypt')
 const { User } = require('../models/models')
 //токен авторизации 
 const jwt = require('jsonwebtoken')
+//генерирует случайные id , которые не повторяются 
+const uuid = require('uuid')
+const path = require('path')
 
 
 const generateJwt = (id, email) => {
@@ -117,6 +120,32 @@ class UserController {
 
 
     }
+    //получить фото профиля
+    async addImg(req, res, next) {
+
+        try {
+            const { userId } = req.body
+
+            const { img } = req.files
+
+            //генерируем уникальное имя картинке
+            let fileName = uuid.v4() + ".jpg"
+            //перемещаем картинку в папку со статикой (resolve адаптирует указанный путь к операционной системе )
+            //__dirname - путь до текущей папки, '..' - возвращают на дерикторию ниже в server 
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+
+            const user = await User.findOne({ userId })
+
+            user.img = fileName
+
+            await user.save()
+
+            return res.json(user)
+        } catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+    }
+
 }
 
 module.exports = new UserController()
