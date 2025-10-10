@@ -37,7 +37,7 @@ class PublicationController {
     //создание публикации
     async create(req, res, next){
       try{
-        const {userName, text, userId} = req.body
+        const { text, userId } = req.body
         const {img} = req.files
       
          //генерируем уникальное имя картинке
@@ -47,7 +47,7 @@ class PublicationController {
         img.mv(path.resolve(__dirname, '..', 'static', fileName))
       
         const publication = await Publication.create({
-            userName , text , userId, img: fileName
+             text , userId, img: fileName
            })
       
        return res.json(publication)
@@ -58,7 +58,7 @@ class PublicationController {
       
     }
 
-    //получение одной публикации по id данного пользователя 
+    //получение одной публикации по id  
     async getOne(req , res){
       //id самой публикации 
       const { id } = req.params

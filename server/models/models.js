@@ -21,7 +21,6 @@ const User = sequelize.define('user', {
 //Модель публикации 
 const Publication = sequelize.define('publication', {
   id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-  userName: {type: DataTypes.STRING},
   img: {type: DataTypes.STRING, allowNull: false}, 
   text: {type: DataTypes.STRING}
 })
