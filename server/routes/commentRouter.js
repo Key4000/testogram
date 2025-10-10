@@ -15,7 +15,7 @@ const commentController =  require('../controllers/commentController')
 //------------Маршруты-----------------
 
 //получение всех комментов публикации
-router.get('/:publicationId', commentController.getAll)
+router.get('/', commentController.getAll)
 
 //добавление коммента публикации 
 router.post('/', commentController.add)

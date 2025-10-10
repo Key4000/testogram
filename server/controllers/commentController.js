@@ -15,7 +15,7 @@ class CommentController {
 
   //получение всех комментов публикации 
   async getAll(req, res) {
-    const { publicationId } = req.params
+    const { publicationId } = req.query
 
     const comments = await Comment.findAll({
       where: { publicationId }
