@@ -84,6 +84,11 @@ const [isButton, setIsButton] = useState(false)
   </Card.Header>
 <Card.Img src={process.env.REACT_APP_API_URL + publication.img + "/600px400"}/>
 <Card.Body>
+  <Like 
+   publicationId = {publication.id}
+   userId = {user.user.id}
+   whomId = {publication.userId}
+  /> 
   <Card.Text>
    <span 
      className="post-name" 
