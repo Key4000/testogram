@@ -72,15 +72,15 @@ class PublicationController {
     }
 
     //получение одной последней   
-    async getOneNow(req , res){ 
-      const { userId } = req.query
+    async getOneDate(req , res){ 
+      const { userId, offset} = req.query
       
       //отправляем запрос в бд 
       const publication = await Publication.findAll({
          where: { userId }, 
          order: [['createdAt', 'DESC']],
-         limit: 1
-                
+         limit: 1, 
+         offset: offset      
       })
      
       return res.json(publication)
