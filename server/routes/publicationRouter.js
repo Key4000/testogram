@@ -22,5 +22,9 @@ router.post('/', publicationController.create)
 //получение одной публикации по id данного пользователя 
 router.get('/:id', publicationController.getOne)
 
+//получение одной последней по дате с отступом 
+router.get('/oneDate', publicationController.getOneDate)
+
+
 
 module.exports = router
