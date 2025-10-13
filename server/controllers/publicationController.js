@@ -71,6 +71,21 @@ class PublicationController {
       return res.json(publication)
     }
 
+    //получение одной последней   
+    async getOneNow(req , res){ 
+      const { userId } = req.query
+      
+      //отправляем запрос в бд 
+      const publication = await Publication.findAll({
+         where: { userId }, 
+         order: [['createdAt', 'DESC']],
+         limit: 1
+                
+      })
+     
+      return res.json(publication)
+    }
+
 
 }
 
