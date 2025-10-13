@@ -28,7 +28,7 @@ class PublicationController {
      
       //отправляем запрос в бд 
       const publications = await Publication.findAndCountAll({
-         where: { userId }
+         where: { userId, limit=10, page}
       })
      
       return res.json(publications)
