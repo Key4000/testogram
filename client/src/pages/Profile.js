@@ -7,7 +7,8 @@
 import React from 'react'
 import { Container } from 'react-bootstrap';
 import { useContext, useState } from 'react';
-import { useNavigate,  useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { useInView } from 'react-intersection-observer';
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
 //запросы
@@ -16,10 +17,8 @@ import { fetchSubscriber } from '../http/subsAPI'
 //свои 
 import { Logo } from "../components /Logo/Logo"
 import { PostWindow } from '../components/modals/Publication'
-import Subscriptions from '../components/modals/Subscriptions'
-import Subscribers from '../components/modals/Subscribers'
-//роуты 
-import { SUBSCRIBERS_ROUTE,  SUBSCRIPTIONS_ROUTE } from  '../utils/consts' 
+
+
 
 const Profile = observer(() => {
 
@@ -27,32 +26,53 @@ const Profile = observer(() => {
 const [postVisible, setPostVisible] = useState(false)
 const [subscriptionVisible, setSubscriptionVisible] = useState(false)
 const [subscriberVisible, setSubscriberVisible] = useState(false)
-//состояние поста
-const [post, setPost] = useState(null)
+//для отправки поста в модальное окно
+const [sendPost, setSendPost] = useState(null)
+//для бесклнечного скролла 
+const [posts, setPosts] = useState([]);
+const [page, setPage] = useState(1);
+const [loading, setLoading] = useState(false); 
 
+
+const { ref, inView } = useInView({
+     // Загружать только один раз
+    rootMargin: '200px', // Загрузить заранее, когда до конца останется 200px
+  }); 
 //берем id из параметра 
 const { id } = useParams()
-//хук навигации 
-const navigate = useNavigate()
 
 //Получаем хранилища
-const { subscription, user, publication, subscriber} = useContext(Context)
+const { user } = useContext(Context)
 
-//----------
-//подгружаем публикации, подписчиков (подписки мы подгрузили в Main)
+const fetchPost = async () => {
+ if (loading) return; // Предотвращаем повторную загрузку
+ setLoading(true);
+ //подгружаем ещё порцию постов 
+
+ 
+ setPage(prevPage => prevPage + 1);
+    setLoading(false);
+  };
+
 useEffect(() => {
-  //подгружаем публикации 
-  fetchPublication(user.user.id).then( data => {
-     publication.setPublications(data.rows)
-     publication.setCount(data.count)})
-  //подгружаем подписчиков 
-  fetchSubscriber(user.user.id).then(data => {
-     subscriber.setSubscriber(data.rows)
-     subscriber.setCountOfSubs(data.count)})
-   //
-   subscription.setSubscription(subscription.subscription.map(person => {
-     
-   }))
+//подгружаем подписчиков 
+let bufSub 
+let person = {}
+let sub = []
+let bufUser   
+  
+fetchSubscriber(id).then(data => {
+  //берём одно значение subId, так как оно повторяется
+  bufSub = data.rows[0].subId
+  sub = data.rows.map(person => {
+    //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
+    bufUser = person.userId
+    person.userId = bufSub
+    person.subId = bufUser
+  })
+  sub.setSubscriber(sub)
+  sub.setCountSubscriber(data.count)
+})
 }, []) 
 
 return (

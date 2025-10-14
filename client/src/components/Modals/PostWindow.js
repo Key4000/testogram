@@ -1,43 +1,17 @@
 //****************************************************
-
 //  модальное окно с постом 
-
 //****************************************************
 import { useState } from 'react'
 import Modal from "react-bootstrap/Modal";
-import { Post } from '../Post'
-import { addCom } from '../../http/publicationAPI'
 import { Context } from '.. /../index';
+import { InputCom } from '../inputCom'
+import { ComList } from '../ComList'
+import { Like } from '../Like'
 
-const PostWindow= ({ show, onHide, post,  avatar, }) => {
+const PostWindow = ({ show, onHide, post,  avatar }) => {
   
-//состояние отправки коммента  
- const [sendCom, setSendCom] = useState('')
-//состояние кнопки 
-const [isButton, setIsButton] = useState(false) 
 //Получаем хранилища
 const { user } = useContext(Context)
- 
-//функция отправки комментария
-const send = async () => { 
-   try{
-     const data = await addCom({
-       publicationId: post.id
-       userId: user.user.id, 
-       text: sendCom
-       whomId: post.userId
-     })
-     //попробовать это, если комменты не подгружаются в модальное окно publication
-     //fetchCom(publication.userId).then(data => {
-      //setCom(data.rows)
-    // setCountCom(data.count)
-    //}) 
-     
-   } catch(e) {
-     alert(e.response.data.message)
-   }
- }
-
 
 return (
 <Modal
@@ -50,34 +24,30 @@ return (
 <Modal.Body>
 <Row> 
  <Col>
-    <Post 
-    avatar = {avatar} 
-    img = {post.img}
-    size = {"600px400"}
-    text = {post.text}
- />
+  <Image src={process.env.REACT_APP_API_URL + post.img + "/600px400"} />
  </Col>
  <Col>
-    //******************
- //сюда надо добавить ленту коментов
- //******************
-<Row>
- <Form.Control
-    placeholder="Оставьте комментарий..."
-    value={sendCom}
-    onChange={e => {
-        setSendCom(e.target.value)
-        setIsButton(e.target.value !== '')   
-       }}
-     />
-     {isButton && <Button
-        style={{ width: 'Auto' }}
-        variant="outline-dark"
-        onClick={send}
-      >
-      Опубликовать
-      </Button>} 
-   </Row>
+  <Logo src={avatar}></Logo>
+  <span 
+      onClick={navigate(PROFILE_ROUTE+ '/' + post.userId)}
+      className="post-name" 
+    >
+    {post.userName}
+  </span>
+  
+<ComList
+ postId = {post.id}
+/>
+<Like 
+  publicationId = {post.id}
+  userId = {user.user.id}
+  whomId = {post.userId}
+/>
+<InputCom 
+ postId = {post.id}
+ userId = {user.user.id} 
+ whomId = {post.userId}
+/>
  </Col>
 </Row>
 </Modal.Body>

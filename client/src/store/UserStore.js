@@ -15,7 +15,7 @@ export default class UserStore{
    this._avatar = ''
    //имя пользователя
    this._name = ''
-        
+
    makeAutoObservable(this)
 }
 //сеттеры
@@ -31,7 +31,7 @@ setUser(user){
  setName(name){
     this._name = name
  }
-    
+
 //гетеры
 get isAuth(){
    return this._isAuth

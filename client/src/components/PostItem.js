@@ -19,11 +19,11 @@ import { PostWindow } from '../components/modals/PostWindow'
 import { PROFILE_ROUTE } from '../utils/consts' 
 
 const PostItem = ({ publication }) => {
- 
+
  //состояния модального окна поста
 const [postVisible, setPostVisible] = useState(false) 
 
- 
+
 //состояние кнопки 
 const [isButton, setIsButton] = useState(false) 
 //состояния имени и аватара 
@@ -37,10 +37,10 @@ const [isButton, setIsButton] = useState(false)
 
  //навигация 
  const navigate = useNavigate()
- 
+
  //хранилища 
- const { user} = useContext(Context)
- 
+ const { user } = useContext(Context)
+
  //функция отправки комментария
  const send = async () => { 
    try{
@@ -55,12 +55,12 @@ const [isButton, setIsButton] = useState(false)
       //setCom(data.rows)
     // setCountCom(data.count)
     //}) 
-     
+
    } catch(e) {
      alert(e.response.data.message)
    }
  }
- 
+
  useEffect(() => { 
     getAvatar(publication.userId).then(data => setAvatar(data. img))
     getName(publication.userId).then(data => setName(data.name))
@@ -69,7 +69,7 @@ const [isButton, setIsButton] = useState(false)
       setCountCom(data.count)
     })
  }, []) 
-  
+
  return (
 <>
   <Card style={{ width: '40vw' }}>

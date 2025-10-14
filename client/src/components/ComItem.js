@@ -12,21 +12,24 @@ import Logo from "../components/Logo/Logo"
 //роуты 
 import { PROFILE_ROUTE } from '../utils/consts' 
 
-const ComItem  = (props) => {
-  
-const navigate = useNavigate() 
-  
-return (
-<div>
- <Row>
-   <Logo src={props.avatar}></Logo>
-   {props.name}
- </Row>
- <Row>
-   
- </Row>
-</div>
+const ComItem  = ({avatar, name, text}) => {
 
+const navigate = useNavigate() 
+
+return (
+<>
+ <Row>
+   <Logo 
+     src={avatar}
+     onClick={navigate(PROFILE_ROUTE + '/' + userId)}
+     style={{ cursor: "pointer" }}
+   />
+   {name}
+ </Row>
+ <Row>
+    {text} 
+ </Row>
+</>
 )
 
 }

@@ -29,7 +29,7 @@ export const fetchUser = async (name) => {
   const {data} = await $authHost.get('api/user/', params:{
     name
   })
-  
+
   return data
 }
 
@@ -37,7 +37,7 @@ export const fetchUser = async (name) => {
 export const getAvatar = async (id) =>
 {
   const {data} = await $authHost.get('api/user/img/' + id })
-  
+
   return data
 }
 
@@ -45,11 +45,6 @@ export const getAvatar = async (id) =>
 export const getName = async (id) =>
 {
   const {data} = await $authHost.get('api/user/name/' + id })
-  
+
   return data
 }
-
-
-
-
-

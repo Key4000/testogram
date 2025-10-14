@@ -10,13 +10,34 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { PROFILE_ROUTE } from '.. /../utils/consts'
 import { observer } from 'mobx-react-lite'
+import { Logo} from '../Logo/Logo'
+import { getAvatar, getName } from "../../http/userAPI"
 
 
 const SubWindow = observer(({ show, onHide,  isSubscriber }) => {
 
 //Получаем хранилище
-const { subscriber,  subscription } = useContext(Context)
+const { sub } = useContext(Context)
 
+let subArr = []
+
+useEffect(() => {
+  //подгружаем имена и аватарки к подписчикам
+if(isSubscriber){
+  subArr = sub.subscriber.map(person => {
+    getAvatar(person.subId).then(data => { person.avatar = data })
+    getName(person.subId).then(data => { person.name = data })
+    })
+  sub.subscriber = subArr
+}
+else
+{
+  sub.subscription.map(person => {
+    getAvatar(person.subId).then(data => { person.avatar = data })
+    getName(person.subId).then(data => { person.name = data })
+    }) 
+}
+}, [])
 
 return (
 <Modal
@@ -35,6 +56,7 @@ return (
      key={person.id}
      onClick={navigate(PROFILE_ROUTE+ '/' + person.subId)}
     >
+    <Logo src={person.avatar}></Logo>
     {person.name}
     </ListGroup.Item>
    )} 
@@ -47,6 +69,7 @@ return (
        key={person.id}
        onClick={navigate(PROFILE_ROUTE+ '/' + person.subId)}
      >
+     <Logo src={person.avatar}></Logo>
      {person.name}
      </ListGroup.Item>
    )}
