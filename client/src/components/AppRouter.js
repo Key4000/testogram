@@ -24,7 +24,7 @@ const AppRouter = observer(() => {
                     <Route key={path} path={path} element={<Component />} exact />
                 )}
             </Routes>
-
+            <Route to={MAIN_ROUTE} />
         </>
 
     )
