@@ -5,12 +5,13 @@
 //****************************************************
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts'
-import { login, registration, getImg } from '../http/userAPI'
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, SHOP_ROUTE, MAIN_ROUTE } from '../utils/consts'
+import { login, registration, getImg, getAvatar } from '../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from "react-router-dom"
 import { useContext, useState } from 'react';
 import { Context } from '../index'
+import { Button, Card, Col, Container, Form, Image, Row } from 'react-bootstrap'
 
 
 const Auth = observer(() => {
@@ -42,7 +43,7 @@ const click = async () => {
   user.setIsAuth(true)
             
   //запрос на получение картинки по id пользователя
-  const avatar = await getOne(publication.userId).then( user => {
+  const avatar = await getAvatar(data.id).then( user => {
          //добавляем аватар в хранилище
          user.setAvatar(user.img)
          //добавляем имя в хранилище 

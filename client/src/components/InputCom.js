@@ -4,8 +4,9 @@
 
 //****************************************************
 import { useState } from 'react'
-import { addCom } from '../../http/publicationAPI'
-import { Context } from '.. /../index';
+import { addCom } from '../http/publicationAPI'
+import { Button, Form } from 'react-bootstrap'
+
 
 const InputCom = ({ postId, userId, whomId }) => {
 
@@ -17,7 +18,7 @@ const [isButton, setIsButton] = useState(false)
 //функция отправки комментария
 const send = async () => { 
    try{
-     const data = await addCom({
+     await addCom({
        publicationId: postId, 
        userId: userId, 
        text: com, 

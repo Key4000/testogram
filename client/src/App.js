@@ -4,17 +4,18 @@
 
 //****************************************************
 //реакт 
-import { BrowserRouter } from "react-router-dom"
-import AppRouter from "./components/AppRouter"
-import { observer } from 'mobx-react-lite'
-import { useContext, useState, useEffect } from 'react';
+
+import { observer } from 'mobx-react-lite';
+import { useContext, useEffect, useState } from 'react';
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
 //свои компоненты 
-import SideBar from "./components/SideBar"
+import SideBar from "./components/SideBar";
 
 
-import { Context } from './index';
+import { Row, Spinner, Col } from "react-bootstrap";
 import { check } from "./http/userAPI";
-import { Spinner } from "react-bootstrap";
+import { Context } from './index';
 
 
 const App = observer(() => {

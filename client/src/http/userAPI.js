@@ -26,9 +26,9 @@ export const check = async () => {
 
 //получить всех пользователей, по имени 
 export const fetchUser = async (name) => {
-  const {data} = await $authHost.get('api/user/', params:{
+  const {data} = await $authHost.get('api/user/', {params:{
     name
-  })
+  }})
 
   return data
 }
@@ -36,7 +36,7 @@ export const fetchUser = async (name) => {
 //получить аватар по id 
 export const getAvatar = async (id) =>
 {
-  const {data} = await $authHost.get('api/user/img/' + id })
+  const {data} = await $authHost.get('api/user/img/' + id )
 
   return data
 }
@@ -44,7 +44,7 @@ export const getAvatar = async (id) =>
 //получить имя пользователя по id 
 export const getName = async (id) =>
 {
-  const {data} = await $authHost.get('api/user/name/' + id })
+  const {data} = await $authHost.get('api/user/name/' + id )
 
   return data
 }

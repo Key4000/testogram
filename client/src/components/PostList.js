@@ -5,7 +5,7 @@
 
 //****************************************************
 //реакт 
-import React from 'react'
+import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Row } from 'react-bootstrap';
 //свои компоненты
@@ -14,6 +14,9 @@ import PostItem from './PostItem'
 import { useContext } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Context } from '../index';
+import { fetchOneDate } from '../http/publicationAPI';
+import { fetchSubscription } from '../http/subsAPI';
+import { getName } from '../http/userAPI';
 
 const PostList = observer((id) => {
 
@@ -44,11 +47,11 @@ const fetchPost = async () => {
    fetchOneDate(person.subId, offset).then(data => 
    {
      //сюда еще можно автар добавить? 
-     getName(post.userId).then(dataTwo => { data.userName = dataTwo })
+     getName(data.userId).then(dataTwo => { data.userName = dataTwo })
      //передаем старый массив с публикациями подписок 
      setPosts([...posts, data])})
-  } 
- } 
+  }) 
+ })
     setPage(prevPage => prevPage + 1);
     setLoading(false);
   };
@@ -69,7 +72,7 @@ return (
      publication={post}
      userId = {post.userId}
   /> 
-}) 
+)}
 <div ref={ref} style={{ height: '40px' }}></div>
 </Row>
     )

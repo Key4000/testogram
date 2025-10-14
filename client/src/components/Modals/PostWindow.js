@@ -1,17 +1,22 @@
 //****************************************************
 //  модальное окно с постом 
 //****************************************************
-import { useState } from 'react'
 import Modal from "react-bootstrap/Modal";
-import { Context } from '.. /../index';
-import { InputCom } from '../inputCom'
-import { ComList } from '../ComList'
-import { Like } from '../Like'
+import { Context } from '../../index';
+import  InputCom  from '../InputCom'
+import  ComList  from '../ComList'
+import  Like  from '../Like'
+import { useContext } from "react";
+import { Col, Image, Row } from "react-bootstrap";
+import Logo from "../Logo/Logo";
+import { useNavigate } from "react-router-dom";
+import { PROFILE_ROUTE } from "../../utils/consts";
 
 const PostWindow = ({ show, onHide, post,  avatar }) => {
   
 //Получаем хранилища
 const { user } = useContext(Context)
+const navigate = useNavigate() 
 
 return (
 <Modal

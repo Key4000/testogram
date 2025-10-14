@@ -9,9 +9,9 @@ import Main from './pages/Main'
 import Auth from './pages/Auth'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
-import Like from './pages/Like'
+import Likes from './pages/Likes'
 
-import { MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SEARCH_ROUTE,  PROFILE_ROUTE } from './utils/consts'
+import { MAIN_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, SEARCH_ROUTE,  PROFILE_ROUTE, LIKE_ROUTE } from './utils/consts'
 //авторизованные роуты 
 export const authRoutes = [
     {
@@ -24,7 +24,7 @@ export const authRoutes = [
     },
     {
         path: LIKE_ROUTE,
-        Component: Like
+        Component: Likes
     },
     {
         path: PROFILE_ROUTE,

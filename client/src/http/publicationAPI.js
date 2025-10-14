@@ -8,27 +8,27 @@ import {$authHost, $host} from './index'
 
 
 //Получаем все публикации пользователя 
-export const fetchPublication = async (userId, page, limit ) => {
-  const {data} = await $authHost.get('api/publication', params:{
+export const fetchPublication = async (userId, page, limit = 10 ) => {
+  const {data} = await $authHost.get('api/publication', {params : {
     userId, page, limit
-  })
+  }})
   return data 
 }
 
 //Получаем одну публикацию 
-export const fetchOneDate = async (userId) => {
-  const {data} = await $authHost.get('api/publication/oneDate', params:{
+export const fetchOneDate = async (userId, offset) => {
+  const {data} = await $authHost.get('api/publication/oneDate', {params:{
     userId, offset
-  })
+  }})
   return data 
 }
 
 
 //Получить все лайки пользователя
 export const fetchLike = async (whomId) => {
-  const {data} = await $authHost.get('api/like', params:{
+  const {data} = await $authHost.get('api/like', {params:{
     whomId
-  })
+  }})
   return data 
 }
 

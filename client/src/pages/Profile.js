@@ -12,11 +12,10 @@ import { useInView } from 'react-intersection-observer';
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
 //запросы
-import { fetchPublication } from '../http/publicationAPI'
 import { fetchSubscriber } from '../http/subsAPI'
 //свои 
-import { Logo } from "../components /Logo/Logo"
-import { PostWindow } from '../components/modals/Publication'
+import  Logo  from "../components/Logo/Logo"
+import  PostWindow  from '../components/Modals/PostWindow'
 
 
 
@@ -28,7 +27,7 @@ const [subscriptionVisible, setSubscriptionVisible] = useState(false)
 const [subscriberVisible, setSubscriberVisible] = useState(false)
 //для отправки поста в модальное окно
 const [sendPost, setSendPost] = useState(null)
-//для бесклнечного скролла 
+//для бесконечного скролла 
 const [posts, setPosts] = useState([]);
 const [page, setPage] = useState(1);
 const [loading, setLoading] = useState(false); 

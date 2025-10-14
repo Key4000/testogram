@@ -8,7 +8,7 @@ import { Context } from '../index';
 import { observer } from 'mobx-react-lite'
 import { useContext } from 'react';
 //Свои компоненты
-import { PostList } from '../components/PostList'
+import PostList from '../components/PostList'
 
 
 const Main = observer(() => {
