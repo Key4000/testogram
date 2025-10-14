@@ -23,13 +23,13 @@ const App = observer(() => {
   const [loading, setLoading] = useState(true)
 
 
-useEffect(() => {
-        check().then(data => {
-            //добавляем юзера в хранилище
-            user.setUser(data)
-            user.setIsAuth(true)
-        }).finally(() => setLoading(false))
-    }, [])
+  useEffect(() => {
+    check().then(data => {
+      //добавляем юзера в хранилище
+      user.setUser(data)
+      user.setIsAuth(true)
+    }).finally(() => setLoading(false))
+  }, [user])
 
 
   if (loading) {
@@ -37,17 +37,18 @@ useEffect(() => {
   }
   return (
     <BrowserRouter>
-      <Row className ="mt-3">
-               <Col md={2}>
-                   <SideBar/>
-               </Col> 
-               <Col md={10}>
-                   <AppRouter /> 
-               </Col>
-               <Col md={2}>
-          
-               </Col>
-            </Row>
+
+      <Row className="mt-3">
+        <Col md={2}>
+          {/* <SideBar /> */}
+        </Col>
+        <Col md={10}>
+          <AppRouter />
+        </Col>
+        <Col md={2}>
+
+        </Col>
+      </Row>
     </BrowserRouter>
   );
 })

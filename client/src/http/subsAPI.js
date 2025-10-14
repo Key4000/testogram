@@ -4,7 +4,7 @@
 
 //****************************************************
 
-import {$authHost, $host} from './index'
+import {$authHost} from './index'
 
 //получаем все подписки 
 export const fetchSubscription = async (userId, limit = 10, page) => {

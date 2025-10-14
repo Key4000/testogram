@@ -35,7 +35,7 @@ return(
      <Image src={like} onClick={navigate(LIKE_ROUTE)}/>
    </Row>
    <Row>
-     <Logo width={"20px"} height={"20px"} src={user.user.img} onClick={navigate(PROFILE_ROUTE + '/' + user. user.id)}/>
+     <Logo width={"80px"} height={"80px"} src={user.user.img} onClick={navigate(PROFILE_ROUTE + '/' + user. user.id)}/>
    </Row>
    
  </div>

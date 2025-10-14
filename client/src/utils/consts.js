@@ -1,8 +1,8 @@
 //роуты авторизации 
 export const LOGIN_ROUTE = '/login'
-export const REGISTRATION_ROUTE = '/registration'
+export const REGISTRATION_ROUTE = '/'
 //роуты сайдбара 
-export const MAIN_ROUTE = '/'
+export const MAIN_ROUTE = '/home'
 export const SEARCH_ROUTE = '/search'
 export const LIKE_ROUTE = '/like'
 export const PROFILE_ROUTE = '/profile'

@@ -15,10 +15,10 @@ class SubController {
 
   //получить всех подписчиков
   async getAllScriber(req, res) {
-    const { userId, limit=20, page} = req.query
+    const { userId, limit , page } = req.query
 
     const subscriber = await Sub.findAndCountAll({
-      where: { subId: userId }
+      where: { subId: userId, limit, page }
     })
 
     return res.json(subscriber)
@@ -26,10 +26,10 @@ class SubController {
 
   //получить все подписки
   async getAllScription(req, res) {
-    const { userId, limit=20, page} = req.query
+    const { userId, limit, page} = req.query
 
     const subscription = await Sub.findAndCountAll({
-      where: { userId }
+      where: { userId,limit, page }
     })
 
     return res.json(subscription)

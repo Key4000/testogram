@@ -24,11 +24,11 @@ class PublicationController {
     //получение всех публикаций данного пользователя 
     async getAll(req, res, next) {
       //в запросе мы должны передать id пользователя ,чьи посты 
-      const { userId } = req.query
+      const { userId, limit, page } = req.query
      
       //отправляем запрос в бд 
       const publications = await Publication.findAndCountAll({
-         where: { userId, limit=10, page}
+         where: { userId, limit, page}
       })
      
       return res.json(publications)

@@ -9,7 +9,7 @@ import { Routes, Route} from 'react-router-dom'
 import { authRoutes, publicRoutes } from '../routes'
 import { Context } from '../index'
 import { useContext } from 'react';
-import { MAIN_ROUTE } from '../utils/consts'
+import { REGISTRATION_ROUTE } from '../utils/consts'
 import {observer} from "mobx-react-lite";
 
 const AppRouter = observer(() => {
@@ -23,8 +23,8 @@ const AppRouter = observer(() => {
                 {publicRoutes.map(({ path, Component }) =>
                     <Route key={path} path={path} element={<Component />} exact />
                 )}
+                <Route to={REGISTRATION_ROUTE} />
             </Routes>
-            <Route to={MAIN_ROUTE} />
         </>
 
     )
