@@ -14,7 +14,7 @@ const publicationController =  require('../controllers/publicationController')
 //------------Маршруты-----------------
 
 //получение всех публикаций данного пользователя 
-// router.get('/', publicationController.getAll)
+router.get('/', publicationController.getAll)
 
 //создание публикации 
 router.post('/', publicationController.create)
