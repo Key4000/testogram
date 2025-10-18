@@ -14,7 +14,7 @@ const publicationController =  require('../controllers/publicationController')
 //------------Маршруты-----------------
 
 //получение всех публикаций данного пользователя 
-router.get('/', publicationController.getAll)
+// router.get('/', publicationController.getAll)
 
 //создание публикации 
 router.post('/', publicationController.create)
@@ -23,7 +23,7 @@ router.post('/', publicationController.create)
 router.get('/:id', publicationController.getOne)
 
 //получение одной последней по дате с отступом 
-router.get('/oneDate', publicationController.getOneDate)
+router.get('/last', publicationController.getDate)
 
 
 

@@ -18,7 +18,7 @@ class SubController {
     const { userId, limit , page } = req.query
 
     const subscriber = await Sub.findAndCountAll({
-      where: { subId: userId, limit, page }
+      where: { subId: userId } , limit, page 
     })
 
     return res.json(subscriber)
@@ -29,8 +29,8 @@ class SubController {
     const { userId, limit, page} = req.query
 
     const subscription = await Sub.findAndCountAll({
-      where: { userId,limit, page }
-    })
+      where: { userId } ,limit, page }
+    )
 
     return res.json(subscription)
   }

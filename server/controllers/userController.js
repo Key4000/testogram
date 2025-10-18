@@ -120,7 +120,7 @@ class UserController {
 
 
     }
-    //получить фото профиля
+    //добавить фото профиля
     async addImg(req, res, next) {
 
         try {

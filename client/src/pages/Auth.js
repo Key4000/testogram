@@ -6,7 +6,7 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { REGISTRATION_ROUTE, LOGIN_ROUTE, MAIN_ROUTE } from '../utils/consts'
-import { login, registration, getAvatar } from '../http/userAPI'
+import { login, registration, getAvatar, getName } from '../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { useNavigate } from "react-router-dom"
 import { useContext, useState } from 'react';
@@ -44,11 +44,15 @@ const Auth = observer(() => {
       user.setIsAuth(true)
 
       //запрос на получение картинки по id пользователя
-      await getAvatar(data.id).then(user => {
+      await getAvatar(data.id).then(img => {
         //добавляем аватар в хранилище
-        user.setAvatar(user.img)
-        //добавляем имя в хранилище 
-        user.setName(user.name)
+        user.setAvatar(img)
+      })
+
+      //запрос на получение имени по id пользователя
+      await getName(data.id).then(name => {
+        //добавляем аватар в хранилище
+        user.setName(name)
       })
 
       //основная страница 

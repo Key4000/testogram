@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite'
 import { useContext } from 'react';
 //Свои компоненты
 import PostList from '../components/PostList'
+import { Container } from 'react-bootstrap';
 
 
 const Main = observer(() => {

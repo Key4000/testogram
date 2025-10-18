@@ -17,9 +17,11 @@ export const fetchPublication = async (userId, page, limit = 10 ) => {
 
 //Получаем одну публикацию 
 export const fetchOneDate = async (userId, offset) => {
-  const {data} = await $authHost.get('api/publication/oneDate', {params:{
-    userId, offset
-  }})
+  console.log(" - ", userId)
+  console.log(" - ", offset)
+  const {data} = await $authHost.get('api/publication/onedate', {params:{
+    userId}, offset
+  })
   return data 
 }
 
