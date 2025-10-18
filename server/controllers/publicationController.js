@@ -80,19 +80,13 @@ class PublicationController {
     console.log(" - ", userId)
     console.log(" - ", offset)
     console.log(" ------------------------------------------------------------------------------------------------------- ")
-    // //отправляем запрос в бд 
-    // const publication = await Publication.findAll({
-    //    where: { userId }, 
-    //    order: [['createdAt', 'DESC']],
-    //    limit: 1, 
-    //    offset: offset      
-    // })
-
     //отправляем запрос в бд 
-    const publication = await Publication.findAndCountAll({
-      where: { userId }
-    }
-    )
+    const publication = await Publication.findAll({
+        where: { userId }, 
+        order: [['createdAt', 'DESC']],
+        limit: 1, 
+        offset: offset      
+    })
 
     return res.json(publication)
   }
