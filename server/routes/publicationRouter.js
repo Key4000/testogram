@@ -19,11 +19,13 @@ const publicationController =  require('../controllers/publicationController')
 //создание публикации 
 router.post('/', publicationController.create)
 
+//получение одной последней по дате с отступом 
+router.get('/last', publicationController.getDate)
+
 //получение одной публикации по id данного пользователя 
 router.get('/:id', publicationController.getOne)
 
-//получение одной последней по дате с отступом 
-router.get('/last', publicationController.getDate)
+
 
 
 
