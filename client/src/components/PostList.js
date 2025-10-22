@@ -14,7 +14,7 @@ import PostItem from './PostItem'
 import { useContext } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Context } from '../index';
-import { fetchOneDate } from '../http/publicationAPI';
+import { fetchLast} from '../http/publicationAPI';
 import { fetchSubscription } from '../http/subsAPI';
 import { getName } from '../http/userAPI';
 
@@ -43,7 +43,7 @@ const PostList = observer(({id}) => {
       sub.setCountSubscription(data.count)
       sub.subscription.map(person => {
         //здесь мы должны достать из person userId, и передать в функцию получения публикаций 
-        fetchOneDate(person.subId, offset).then(data => {
+        fetchLast(person.subId, offset).then(data => {
           //сюда еще можно автар добавить? 
           getName(data.userId).then(dataTwo => { data.userName = dataTwo })
           //передаем старый массив с публикациями подписок 

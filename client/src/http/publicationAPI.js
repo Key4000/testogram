@@ -16,10 +16,10 @@ export const fetchPublication = async (userId, page, limit = 10 ) => {
 }
 
 //Получаем одну публикацию 
-export const fetchOneDate = async (userId, offset) => {
+export const fetchLast = async (userId, offset) => {
   console.log(" - ", userId)
   console.log(" - ", offset)
-  const {data} = await $authHost.get('api/publication/onedate', {params:{
+  const {data} = await $authHost.get('api/publication/last', {params:{
     userId}, offset
   })
   return data 
