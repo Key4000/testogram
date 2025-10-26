@@ -10,20 +10,25 @@ import { useContext } from 'react';
 //Свои компоненты
 import PostList from '../components/PostList'
 import { Container } from 'react-bootstrap';
+import SideBar from '../components/SideBar'
 
 
 const Main = observer(() => {
 
-//Получаем хранилище пользователя
-const { user } = useContext(Context)
+  //Получаем хранилище пользователя
+  const { user } = useContext(Context)
 
-return (
-<Container>
-  <PostList
-    id = {user.user.id}
-  />
-</Container>
-)
+  return (
+    <div className="d-flex">
+      <SideBar/>
+      <Container>
+        <PostList
+          id={user.user.id}
+        />
+      </Container>
+    </div>
+
+  )
 })
 
-export default Main ;
+export default Main;

@@ -44,19 +44,20 @@ const Auth = observer(() => {
       user.setIsAuth(true)
 
       //запрос на получение картинки по id пользователя
-      await getAvatar(data.id).then(img => {
+      await getAvatar(data.id).then(data => {
         //добавляем аватар в хранилище
-        user.setAvatar(img)
+        user.setAvatar(data.img)
       })
 
       //запрос на получение имени по id пользователя
-      await getName(data.id).then(name => {
+      await getName(data.id).then(data => {
         //добавляем аватар в хранилище
-        user.setName(name)
+        user.setName(data.name)
       })
 
       //основная страница 
       navigate(MAIN_ROUTE)
+
     } catch (e) {
       alert(e.response.data.message)
     }

@@ -3,6 +3,7 @@
 //****************************************************
 import { Image } from "react-bootstrap"
 import { fetchLike } from "../http/publicationAPI"
+import LikeIcon from "../assets/like.png"
 
 const Like = ({ publicationId, userId, whomId }) => {
 
@@ -14,7 +15,9 @@ const Like = ({ publicationId, userId, whomId }) => {
 
   return (
     <Image
-      src = "../assets/like.png"
+      height={30}
+      width={30}
+      src = {LikeIcon}
       onClick={add}
     />
   )

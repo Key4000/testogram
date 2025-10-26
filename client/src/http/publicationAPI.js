@@ -4,7 +4,7 @@
 
 //****************************************************
 
-import {$authHost, $host} from './index'
+import {$authHost} from './index'
 
 
 //Получаем все публикации пользователя 
@@ -17,12 +17,11 @@ export const fetchPublication = async (userId, page, limit = 10 ) => {
 
 //Получаем одну публикацию 
 export const fetchLast = async (userId, offset) => {
-  console.log(" - ", userId)
-  console.log(" - ", offset)
   const {data} = await $authHost.get('api/publication/last', {params:{
     userId}, offset
   })
-  return data 
+  //возвращаем только первый эл-т массива в котором хранится объект
+  return data[0]
 }
 
 
@@ -41,8 +40,10 @@ export const addCom = async (comment) => {
 }
 
 //получить все коментарии поста по id 
-export const fetchCom = async (id) => {
-  const {data} = await $authHost.get('api/comment/' + id )
+export const fetchCom = async (publicationId ) => {
+  const {data} = await $authHost.get('api/comment/' , {params:{
+    publicationId 
+  }})
   return data 
 } 
 

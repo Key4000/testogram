@@ -7,7 +7,7 @@
 import React, { useEffect } from 'react'
 import { useContext, useState} from 'react';
 import { Context } from '../index';
-import { Button, Card, Form, Row } from 'react-bootstrap';
+import { Button, Card, Form, Row , Image} from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 //запросы 
 import { getAvatar, getName} from '../http/userAPI';
@@ -16,7 +16,6 @@ import { addCom, fetchCom } from '../http/publicationAPI';
 import Logo from "../components/Logo/Logo"
 import PostWindow from '../components/Modals/PostWindow'
 //роуты 
-import { PROFILE_ROUTE } from '../utils/consts' 
 import Like from './Like';
 
 const PostItem = ({ publication }) => {
@@ -35,9 +34,6 @@ const [isButton, setIsButton] = useState(false)
  const [countCom, setCountCom] = useState(0)
 //состояние отправки коммента  
  const [sendCom, setSendCom] = useState('')
-
- //навигация 
- const navigate = useNavigate()
 
  //хранилища 
  const { user } = useContext(Context)
@@ -63,11 +59,14 @@ const [isButton, setIsButton] = useState(false)
  }
 
  useEffect(() => { 
-    getAvatar(publication.userId).then(data => setAvatar(data. img))
+    getAvatar(publication.userId).then(data => setAvatar(data.img))
     getName(publication.userId).then(data => setName(data.name))
-    fetchCom(publication.userId).then(data => {
+    fetchCom(publication.id).then(data => {
       setCom(data.rows)
       setCountCom(data.count)
+    }).finally(() => {
+      setCom([])
+      setCountCom(0)
     })
  }, []) 
 
@@ -75,15 +74,14 @@ const [isButton, setIsButton] = useState(false)
 <>
   <Card style={{ width: '40vw' }}>
   <Card.Header>
-  <Logo src={avatar}></Logo>
+  <Logo src={process.env.REACT_APP_API_URL + avatar}></Logo>
   <span 
-      onClick={navigate(PROFILE_ROUTE+ '/' + publication.userId)}
       className="post-name" 
     >
     {name}
   </span>
   </Card.Header>
-<Card.Img src={process.env.REACT_APP_API_URL + publication.img + "/600px400"}/>
+<Image src={process.env.REACT_APP_API_URL + publication.img}/>
 <Card.Body>
   <Like 
    publicationId = {publication.id}
@@ -93,7 +91,6 @@ const [isButton, setIsButton] = useState(false)
   <Card.Text>
    <span 
      className="post-name" 
-     onClick={navigate(PROFILE_ROUTE+ '/' + publication.userId)}
    >
    {name}
    </span> 
@@ -123,14 +120,14 @@ const [isButton, setIsButton] = useState(false)
    </Row>
 </Card.Body>
 </Card>
-<PostWindow 
+{/* <PostWindow 
   show={postVisible} 
   onHide={() => setPostVisible(false)} 
   post={publication}
   avatar={user.user.avatar}
   comments={com} 
   countCom = {countCom} 
-/>
+/> */}
 </>
  )
 

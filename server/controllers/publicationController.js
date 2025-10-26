@@ -74,12 +74,7 @@ class PublicationController {
 
   //получение одной последней   
   async getDate(req, res) {
-    console.log(" ------------------------------------------------------------------------------------------------------- ")
     const { userId, offset } = req.query
-
-    console.log(" - ", userId)
-    console.log(" - ", offset)
-    console.log(" ------------------------------------------------------------------------------------------------------- ")
     //отправляем запрос в бд 
     const publication = await Publication.findAll({
         where: { userId }, 
@@ -87,7 +82,6 @@ class PublicationController {
         limit: 1, 
         offset: offset      
     })
-
     return res.json(publication)
   }
 

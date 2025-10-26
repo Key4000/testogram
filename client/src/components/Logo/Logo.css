@@ -16,8 +16,7 @@
 
 .Inside{
   position: relative;
-  left: 2px;
-  top: 2px;
+
   width: 36px;
   height: 36px;
   z-index: 20;

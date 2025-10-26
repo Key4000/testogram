@@ -23,19 +23,20 @@ const SideBar = observer(() => {
 const { user } = useContext(Context) 
 const navigate = useNavigate() 
 
+
 return(
- <div className = "" >
+ <div style={{position: 'fixed'}}>
    <Row>
-     <Image src={home} onClick={navigate(MAIN_ROUTE)}/>
+     <Image height={30} width={30}  src={home}/>
    </Row>
    <Row>
-     <Image src={search} onClick={navigate(SEARCH_ROUTE)}/>
+     <Image height={30} width={30} src={search} />
    </Row>
    <Row>
-     <Image src={like} onClick={navigate(LIKE_ROUTE)}/>
+     <Image height={30} width={30} src={like} />
    </Row>
    <Row>
-     <Logo width={"80px"} height={"80px"} src={user.user.img} onClick={navigate(PROFILE_ROUTE + '/' + user. user.id)}/>
+     <Logo width={30} height={30} src={user.user.img} />
    </Row>
    
  </div>
