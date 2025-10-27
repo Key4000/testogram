@@ -27,7 +27,7 @@ export const authRoutes = [
         Component: Likes
     },
     {
-        path: PROFILE_ROUTE,
+        path: PROFILE_ROUTE + '/:id',
         Component: Profile
     } 
 ]

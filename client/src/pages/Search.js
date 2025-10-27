@@ -5,12 +5,13 @@
 //****************************************************
 //все что с реактом
 import React from 'react'
-import { Container, Card, Form } from 'react-bootstrap';
+import { Container, Card, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { fetchUser } from '../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { PROFILE_ROUTE } from '../utils/consts'
+import SideBar from '../components/SideBar';
 
 const Search = observer(() => {
   //
@@ -30,21 +31,23 @@ const Search = observer(() => {
   }
 
   return (
-    <Container>
-      <Form className="d-flex flex-column">
-        <Form.Control
-          className="mt-3"
-          placeholder="Введите имя профиля..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-        <Button
-          style={{ width: 'auto' }}
-          variant="outline-dark"
-          onClick={click}
-        >
-          Найти
-        </Button>
+    <div>
+      <SideBar />
+      <Container>
+        <Form className="d-flex flex-column">
+          <Form.Control
+            className="mt-3"
+            placeholder="Введите имя профиля..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
+          <Button
+            style={{ width: 'auto' }}
+            variant="outline-dark"
+            onClick={click}
+          >
+            Найти
+          </Button>
         </Form>
         {search ?
           <Card>
@@ -61,7 +64,8 @@ const Search = observer(() => {
           </div>
 
         }
-    </Container>
+      </Container>
+    </div>
   )
 })
 

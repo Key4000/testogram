@@ -20,8 +20,8 @@ const Main = observer(() => {
 
   return (
     <div className="d-flex">
-      <SideBar/>
-      <Container>
+      <SideBar />
+      <Container style={{ display: 'flex', justifyContent: 'center' }}>
         <PostList
           id={user.user.id}
         />

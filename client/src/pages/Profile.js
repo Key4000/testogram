@@ -4,8 +4,8 @@
 
 //****************************************************
 //все что с реактом
-import React from 'react'
-import { Container } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { Col, Container, Image, Row } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom'
 import { useInView } from 'react-intersection-observer';
