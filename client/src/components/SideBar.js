@@ -27,18 +27,20 @@ const navigate = useNavigate()
 return(
  <div style={{position: 'fixed', display: 'flex', width: '100px', justifyContent : 'center'}}>
    <Row>
-     <Image height={30} width={30}  src={home}/>
+     <Image onClick={() => navigate(MAIN_ROUTE)} height={30} width={30}  src={home}/>
    </Row>
    <Row>
-     <Image height={30} width={30} src={search} />
+     <Image onClick={() => navigate(SEARCH_ROUTE)} height={30} width={30} src={search} />
    </Row>
    <Row>
-     <Image height={30} width={30} src={like} />
+     <Image onClick={() => navigate(LIKE_ROUTE)} height={30} width={30} src={like} />
    </Row>
    <Row>
-     <Logo src={process.env.REACT_APP_API_URL + user.user.img} />
-   </Row>
-   
+  <span onClick={() => navigate(PROFILE_ROUTE + '/' + user.user.id)}>
+    <Logo src={process.env.REACT_APP_API_URL + user.user.img} /> 
+  </span>
+</Row>
+ 
  </div>
   )
 }) 
