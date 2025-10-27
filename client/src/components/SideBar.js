@@ -36,7 +36,7 @@ return(
      <Image height={30} width={30} src={like} />
    </Row>
    <Row>
-     <Logo width={30} height={30} src={user.user.img} />
+     <Logo width={30} height={30} src={process.env.REACT_APP_API_URL + user.user.img} />
    </Row>
    
  </div>
