@@ -25,7 +25,7 @@ const navigate = useNavigate()
 
 
 return(
- <div style={{position: 'fixed'}}>
+ <div style={{position: 'fixed', display: 'flex', width: '100px', justifyContent : 'center'}}>
    <Row>
      <Image height={30} width={30}  src={home}/>
    </Row>
