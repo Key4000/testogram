@@ -16,6 +16,7 @@ import { fetchSubscriber } from '../http/subsAPI'
 //свои 
 import  Logo  from "../components/Logo/Logo"
 import  PostWindow  from '../components/Modals/PostWindow'
+import  SubWindow  from '../components/Modals/SubWindow'
 
 
 
@@ -41,25 +42,24 @@ const { ref, inView } = useInView({
 const { id } = useParams()
 
 //Получаем хранилища
-const { user } = useContext(Context)
+const { user, sub, post} = useContext(Context)
 
 const fetchPost = async () => {
  if (loading) return; // Предотвращаем повторную загрузку
  setLoading(true);
  //подгружаем ещё порцию постов 
-
- 
  setPage(prevPage => prevPage + 1);
     setLoading(false);
   };
 
+/*
 useEffect(() => {
 //подгружаем подписчиков 
 let bufSub 
 let person = {}
 let sub = []
 let bufUser   
-  
+
 fetchSubscriber(id).then(data => {
   //берём одно значение subId, так как оно повторяется
   bufSub = data.rows[0].subId
@@ -72,7 +72,8 @@ fetchSubscriber(id).then(data => {
   sub.setSubscriber(sub)
   sub.setCountSubscriber(data.count)
 })
-}, []) 
+}, [])
+*/
 
 return (
 <Container>
@@ -85,21 +86,21 @@ return (
       <span>{user.user.name}</span>
     </Row>
     <Row>
-      <span>{publication.count} публикаций</span>
+      <span>{post.count} публикаций</span>
       <span onClick={() => {
        setSubscriberVisible(true)
-     }}> {subscriber.countOfSubs} подписчиков</span>
+     }}> {sub.countSubscriber} подписчиков</span>
       <span onClick={() => {
        setSubscriptionVisible(true)
-     }}> {subscription.countOfSubs} подписок</span>
+     }}> {sub.countSubscription} подписок</span>
     </Row>
  </Col>
 </Row>
 <Row className="d-flex" >
-{publicaton.publications.map(publication => {
+{post.posts.map(publication => {
 <Image 
    onClick={() => {
-       setPost(publication)
+       setSendPost(publication)
        setPostVisible(true)
      }
    } 
@@ -111,8 +112,8 @@ return (
 <PostWindow
   show={postVisible} 
   onHide={() => setPostVisible(false)} 
-  post={post}
-  avatar={user.user.avatar}
+  post={sendPost}
+  avatar={user.avatar}
 />
 <SubWindow
   show={subscriptionVisible} 
@@ -129,4 +130,4 @@ return (
 )
 })
 
-export default Profile;
+export default Profile; 
