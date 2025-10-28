@@ -63,7 +63,10 @@ const PostList = observer(({ id }) => {
   // }, [inView]); // Запускаем эффект при изменении видимости
 
   useEffect(() => {
-    fetchPublication(id, 1, 10).then(data => post.setPosts(data.rows))
+   fetchPublication(id, 1, 10).then(data => {
+     post.setPosts(data.rows)
+     post.setCount(data.count)
+   }) 
   }, [])
 
   return (  
