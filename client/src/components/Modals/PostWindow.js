@@ -3,61 +3,62 @@
 //****************************************************
 import Modal from "react-bootstrap/Modal";
 import { Context } from '../../index';
-import  InputCom  from '../InputCom'
-import  ComList  from '../ComList'
-import  Like  from '../Like'
+import InputCom from '../InputCom'
+import ComList from '../ComList'
+import Like from '../Like'
 import { useContext } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_ROUTE } from "../../utils/consts";
 
-const PostWindow = ({ show, onHide, post,  avatar }) => {
-  
-//Получаем хранилища
-const { user } = useContext(Context)
-const navigate = useNavigate() 
+const PostWindow = ({ show, onHide, post, avatar }) => {
 
-return (
-<Modal
-  show={show}
-  onHide={onHide}
-  centered
- >
-<Modal.Header closeButton>
-</Modal.Header>
-<Modal.Body>
-<Row> 
- <Col>
-  <Image src={process.env.REACT_APP_API_URL + post.img + "/600px400"} />
- </Col>
- <Col>
-  <Logo src={avatar}></Logo>
-  <span 
-      onClick={navigate(PROFILE_ROUTE+ '/' + post.userId)}
-      className="post-name" 
+  //Получаем хранилища
+  const { user } = useContext(Context)
+  const navigate = useNavigate()
+
+  return (
+    <Modal
+      show={show}
+      onHide={onHide}
+      centered
     >
-    {post.userName}
-  </span>
-  
-<ComList
- postId = {post.id}
-/>
-<Like 
-  publicationId = {post.id}
-  userId = {user.user.id}
-  whomId = {post.userId}
-/>
-<InputCom 
- postId = {post.id}
- userId = {user.user.id} 
- whomId = {post.userId}
-/>
- </Col>
-</Row>
-</Modal.Body>
-</Modal>
-   )
+      <Modal.Header closeButton>
+      </Modal.Header>
+      <Modal.Body>
+        {/* <Row>
+          <Col>
+            <Image src={process.env.REACT_APP_API_URL + post.img} />
+          </Col>
+          <Col>
+            <Logo src={avatar}></Logo>
+            <span
+              onClick={navigate(PROFILE_ROUTE + '/' + post.userId)}
+              className="post-name"
+            >
+              {post.userName}
+            </span>
+
+            <ComList
+              postId={post.id}
+            />
+            <Like
+              publicationId={post.id}
+              userId={user.user.id}
+              whomId={post.userId}
+            />
+            <InputCom
+              postId={post.id}
+              userId={user.user.id}
+              whomId={post.userId}
+            />
+          </Col>
+        </Row> */}
+        sdgsdgd
+      </Modal.Body>
+    </Modal>
+  )
 }
 
 export default PostWindow;

@@ -4,7 +4,7 @@
 
 //реакт 
 import { Image, Row } from 'react-bootstrap';
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 //картинки
@@ -22,7 +22,6 @@ const SideBar = observer(() => {
 
   const { user } = useContext(Context)
   const navigate = useNavigate()
-
 
   return (
     <div style={{ position: 'fixed', display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
