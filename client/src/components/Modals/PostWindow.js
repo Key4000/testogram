@@ -6,7 +6,7 @@ import { Context } from '../../index';
 import InputCom from '../InputCom'
 import ComList from '../ComList'
 import Like from '../Like'
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Col, Image, Row } from "react-bootstrap";
 import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ import { PROFILE_ROUTE } from "../../utils/consts";
 
 const PostWindow = ({ show, onHide, post, avatar }) => {
 
+  const [visible, setVisible] = useState(false)
   //Получаем хранилища
   const { user } = useContext(Context)
   const navigate = useNavigate()
@@ -27,11 +28,11 @@ const PostWindow = ({ show, onHide, post, avatar }) => {
       <Modal.Header closeButton>
       </Modal.Header>
       <Modal.Body>
-        {/* <Row>
+        <Row>
           <Col>
-            <Image src={process.env.REACT_APP_API_URL + post.img} />
+            {visible && <Image src={process.env.REACT_APP_API_URL + post.img} />}
           </Col>
-          <Col>
+          {/* <Col>
             <Logo src={avatar}></Logo>
             <span
               onClick={navigate(PROFILE_ROUTE + '/' + post.userId)}
@@ -53,9 +54,8 @@ const PostWindow = ({ show, onHide, post, avatar }) => {
               userId={user.user.id}
               whomId={post.userId}
             />
-          </Col>
-        </Row> */}
-        sdgsdgd
+          </Col> */}
+        </Row>
       </Modal.Body>
     </Modal>
   )

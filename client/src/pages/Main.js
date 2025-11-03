@@ -2,7 +2,7 @@
 //  Основная страница с лентой публикаций
 //****************************************************
 //все что с реактом
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { Context } from '../index';
 import { observer } from 'mobx-react-lite'

@@ -12,73 +12,94 @@ import { useInView } from 'react-intersection-observer';
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
 //запросы
-import { fetchSubscriber } from '../http/subsAPI'
+import { fetchSubscriber, fetchSubscription } from '../http/subsAPI'
 //свои 
 import Logo from "../components/Logo/Logo"
 import PostWindow from '../components/Modals/PostWindow'
-import SubWindow from '../components/Modals/SubWindow'
+import SubscriberWindow from '../components/Modals/SubscriberWindow'
+import SubscriptionWindow from '../components/Modals/SubscriptionWindow'
 import SideBar from '../components/SideBar';
+import { fetchPublication } from '../http/publicationAPI';
 
 
 
 const Profile = observer(() => {
-
+  //----------------модальные окна------------------
   //состояния для отображения модальных окон
   const [postVisible, setPostVisible] = useState(false)
   const [subscriptionVisible, setSubscriptionVisible] = useState(false)
   const [subscriberVisible, setSubscriberVisible] = useState(false)
   //для отправки поста в модальное окно
   const [sendPost, setSendPost] = useState(null)
-  //для бесконечного скролла 
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  //-----------------------------------------------
 
-  const { ref, inView } = useInView({
-    triggerOnce: true, // Загружать только один раз
-    rootMargin: '200px', // Загрузить заранее, когда до конца останется 200px
-  });
   //берем id из параметра 
   const { id } = useParams()
 
   //Получаем хранилища
-  const { user, sub, post } = useContext(Context)
+  const { user, sub} = useContext(Context)
 
+  //-----------подгружаем посты----------------------------
+  //посты
+  const [posts, setPosts] = useState([]);
+  //кол-во постов
+  const [countPosts, setCountPosts] = useState(0);
+  //страницы
+  const [page, setPage] = useState(1);
+  //
+  const [loading, setLoading] = useState(false);
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Загружать только один раз
+    rootMargin: '200px', // Загрузить заранее, когда до конца останется 200px
+  });
   const fetchPost = async () => {
-    if (loading) return; // Предотвращаем повторную загрузку
+    if (loading) {
+      return null
+    }; // Предотвращаем повторную загрузку
     setLoading(true);
-    //подгружаем ещё порцию постов 
+    //подгружаем все подписки  
+    await fetchPublication(id, page, 10).then(data => {
+      setCountPosts(data.count)
+      setPosts(data.rows)
+    })
     setPage(prevPage => prevPage + 1);
     setLoading(false);
   };
-
   useEffect(() => {
     if (inView) {
       fetchPost(); // Вызываем функцию загрузки новых данных
     }
   }, [inView]); // Запускаем эффект при изменении видимости
+  //---------------------------------------------------------
 
-  // useEffect(() => {
-  //   //подгружаем подписчиков 
-  //   let bufSub
-  //   let person = {}
-  //   let sub = []
-  //   let bufUser
+  //подгружаем подписчиков 
+  useEffect(() => {
+    let bufSub
+    let person = {}
+    let dataSub = []
+    let bufUser
 
-  //   fetchSubscriber(id).then(data => {
-  //     //берём одно значение subId, так как оно повторяется
-  //     console.log("test - ", data.rows)
-  //     bufSub = data.rows[0].subId
-  //     sub = data.rows.map(person => {
-  //       //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
-  //       bufUser = person.userId
-  //       person.userId = bufSub
-  //       person.subId = bufUser
-  //     })
-  //     sub.setSubscriber(sub)
-  //     sub.setCountSubscriber(data.count)
-  //   })
-  // }, [])
+    fetchSubscriber(id).then(data => {
+      //берём одно значение subId, так как оно повторяется
+      bufSub = data.rows[0].subId
+      dataSub = data.rows.map(person => {
+        //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
+        bufUser = person.userId
+        person.userId = bufSub
+        person.subId = bufUser
+      })
+      sub.setSubscriber(dataSub)
+      sub.setCountSubscriber(data.count)
+    })
+  }, [])
+
+  //подгружаем подписки
+  useEffect(() => {
+    fetchSubscription(id).then(data => {
+      sub.setSubscription(data.rows)
+      sub.setCountSubscription(data.count)
+    })
+  }, [])
 
 
   return (
@@ -94,11 +115,11 @@ const Profile = observer(() => {
               <span>{user.user.name}</span>
             </Row>
             <Row>
-              <span>{post.count} публикаций</span>
-              <span onClick={() => {
+              <span>{countPosts} публикаций</span>
+              <span style={{ cursor: 'pointer' }} onClick={() => {
                 setSubscriberVisible(true)
               }}> {sub.countSubscriber} подписчиков</span>
-              <span onClick={() => {
+              <span style={{ cursor: 'pointer' }} onClick={() => {
                 setSubscriptionVisible(true)
               }}> {sub.countSubscription} подписок</span>
             </Row>
@@ -106,36 +127,34 @@ const Profile = observer(() => {
         </Row>
         <Row className="d-flex" >
           {
-          post.posts.map(publication =>
-            <Image
-              key={publication.id}
-              onClick={() => {
-                setSendPost(publication)
-                setPostVisible(true)
-              }}
-              style={{ width: '300px' }}
-              src={process.env.REACT_APP_API_URL + publication.img}
-            />)
+            posts.map(publication =>
+              <Image
+              
+                key={publication.id}
+                onClick={() => {
+                  setSendPost(publication)
+                  setPostVisible(true)
+                }}
+                style={{ cursor: 'pointer' , width: '600px' }}
+                src={process.env.REACT_APP_API_URL + publication.img}
+              />)
           }
           <div ref={ref} style={{ height: '40px' }}>test</div>
         </Row>
-        {/* <PostWindow
+        <PostWindow
           show={postVisible}
           onHide={() => setPostVisible(false)}
           post={sendPost}
           avatar={user.avatar}
         />
-        <SubWindow
-          show={subscriptionVisible}
-          onHide={() => setSubscriptionVisible(false)}
-          isSubscriber={true}
+        <SubscriberWindow
+          show={subscriberVisible}
+          onHide={() => setSubscriberVisible(false)}
         />
-        <SubWindow
+        <SubscriptionWindow
           show={subscriptionVisible}
           onHide={() => setSubscriptionVisible(false)}
-          isSubscriber={false}
-        /> */}
-
+        />
       </Container>
     </>
   )
