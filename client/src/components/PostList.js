@@ -20,54 +20,47 @@ import { getName } from '../http/userAPI';
 
 const PostList = observer(({ id }) => {
 
-  // const [posts, setPosts] = useState([]);
-  // const [page, setPage] = useState(1);
-  // const [loading, setLoading] = useState(false);
-  // //чтобы подгружать новую порцию данных если нужно будет 
-  // let offset = 0
+  const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  //чтобы подгружать новую порцию данных если нужно будет 
+  let offset = 0
 
   const { ref, inView } = useInView({
-    // Загружать только один раз
+    triggerOnce: true, // Загружать только один раз
     rootMargin: '200px', // Загрузить заранее, когда до конца останется 200px
   });
 
   const { sub , post } = useContext(Context)
 
-  // const fetchPost = async () => {
-  //   if (loading) return; // Предотвращаем повторную загрузку
-  //   setLoading(true);
-  //   //подгружаем все подписки  
-  //   await fetchSubscription(id, 10, page).then(data => {
-  //     sub.setSubscription(data.rows)
-  //     sub.setCountSubscription(data.count)
+  const fetchPost = async () => {
+    if (loading) {
+      return null
+    }; // Предотвращаем повторную загрузку
+    setLoading(true);
+    //подгружаем все подписки  
+    await fetchSubscription(id, 10, page).then(data => {
+      sub.setSubscription(data.rows)
+      sub.setCountSubscription(data.count)
       
-  //     sub.subscription.map(person => {
-  //       //здесь мы должны достать из person userId, и передать в функцию получения публикаций 
-  //       fetchLast(person.subId, offset).then(data => {
-  //         //сюда еще можно автар добавить? 
-  //         getName(data.userId).then(dataTwo => { data.userName = dataTwo })
-  //         //передаем старый массив с публикациями подписок 
-  //         post.setPosts([...post.posts, data])
-  //       })
-
-  //       return null
-  //     })
-  //   })
-  //   setPage(prevPage => prevPage + 1);
-  //   setLoading(false);
-  // };
-  // useEffect(() => {
-  //   if (inView) {
-  //     fetchPost(); // Вызываем функцию загрузки новых данных
-  //   }
-  // }, [inView]); // Запускаем эффект при изменении видимости
-
+      sub.subscription.map(person => {
+        //здесь мы должны достать из person userId, и передать в функцию получения публикаций 
+        fetchLast(person.subId, offset).then(data => {
+          //сюда еще можно автар добавить? 
+          getName(data.userId).then(dataTwo => { data.userName = dataTwo })
+          //передаем старый массив с публикациями подписок 
+          post.setPosts([...post.posts, data])
+        })
+      })
+    })
+    setPage(prevPage => prevPage + 1);
+    setLoading(false);
+  };
   useEffect(() => {
-   fetchPublication(id, 1, 10).then(data => {
-     post.setPosts(data.rows)
-     post.setCount(data.count)
-   }) 
-  }, [])
+    if (inView) {
+      fetchPost(); // Вызываем функцию загрузки новых данных
+    }
+  }, [inView]); // Запускаем эффект при изменении видимости
 
   return (  
   <div>

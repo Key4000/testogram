@@ -34,48 +34,51 @@ const Profile = observer(() => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-
-  // const { ref, inView } = useInView({
-  //      // Загружать только один раз
-  //     rootMargin: '200px', // Загрузить заранее, когда до конца останется 200px
-  //   }); 
-  // //берем id из параметра 
-  // const { id } = useParams()
+  const { ref, inView } = useInView({
+    triggerOnce: true, // Загружать только один раз
+    rootMargin: '200px', // Загрузить заранее, когда до конца останется 200px
+  });
+  //берем id из параметра 
+  const { id } = useParams()
 
   //Получаем хранилища
   const { user, sub, post } = useContext(Context)
 
-  // const fetchPost = async () => {
-  //  if (loading) return; // Предотвращаем повторную загрузку
-  //  setLoading(true);
-  //  //подгружаем ещё порцию постов 
-  //  setPage(prevPage => prevPage + 1);
-  //     setLoading(false);
-  //   };
+  const fetchPost = async () => {
+    if (loading) return; // Предотвращаем повторную загрузку
+    setLoading(true);
+    //подгружаем ещё порцию постов 
+    setPage(prevPage => prevPage + 1);
+    setLoading(false);
+  };
 
-  /*
   useEffect(() => {
-  //подгружаем подписчиков 
-  let bufSub 
-  let person = {}
-  let sub = []
-  let bufUser   
-  
-  fetchSubscriber(id).then(data => {
-    //берём одно значение subId, так как оно повторяется
-    bufSub = data.rows[0].subId
-    sub = data.rows.map(person => {
-      //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
-      bufUser = person.userId
-      person.userId = bufSub
-      person.subId = bufUser
-    })
-    sub.setSubscriber(sub)
-    sub.setCountSubscriber(data.count)
-  })
-  }, [])
-  */
+    if (inView) {
+      fetchPost(); // Вызываем функцию загрузки новых данных
+    }
+  }, [inView]); // Запускаем эффект при изменении видимости
 
+  // useEffect(() => {
+  //   //подгружаем подписчиков 
+  //   let bufSub
+  //   let person = {}
+  //   let sub = []
+  //   let bufUser
+
+  //   fetchSubscriber(id).then(data => {
+  //     //берём одно значение subId, так как оно повторяется
+  //     console.log("test - ", data.rows)
+  //     bufSub = data.rows[0].subId
+  //     sub = data.rows.map(person => {
+  //       //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
+  //       bufUser = person.userId
+  //       person.userId = bufSub
+  //       person.subId = bufUser
+  //     })
+  //     sub.setSubscriber(sub)
+  //     sub.setCountSubscriber(data.count)
+  //   })
+  // }, [])
 
 
   return (
@@ -102,19 +105,21 @@ const Profile = observer(() => {
           </Col>
         </Row>
         <Row className="d-flex" >
-          {post.posts.map(publication => 
+          {
+          post.posts.map(publication =>
             <Image
               key={publication.id}
               onClick={() => {
                 setSendPost(publication)
-                setPostVisible(true)}}
-              style={{width: '300px'}}
-              src={process.env.REACT_APP_API_URL + publication.img }
-            />
-          )
+                setPostVisible(true)
+              }}
+              style={{ width: '300px' }}
+              src={process.env.REACT_APP_API_URL + publication.img}
+            />)
           }
+          <div ref={ref} style={{ height: '40px' }}>test</div>
         </Row>
-        <PostWindow
+        {/* <PostWindow
           show={postVisible}
           onHide={() => setPostVisible(false)}
           post={sendPost}
@@ -129,7 +134,7 @@ const Profile = observer(() => {
           show={subscriptionVisible}
           onHide={() => setSubscriptionVisible(false)}
           isSubscriber={false}
-        />
+        /> */}
 
       </Container>
     </>

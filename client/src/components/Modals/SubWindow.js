@@ -23,22 +23,22 @@ const SubWindow = observer(({ show, onHide, isSubscriber }) => {
 
   let subArr = []
 
-  // useEffect(() => {
-  //   //подгружаем имена и аватарки к подписчикам
-  //   if (isSubscriber) {
-  //     subArr = sub.subscriber.map(person => {
-  //       getAvatar(person.subId).then(data => { person.avatar = data })
-  //       getName(person.subId).then(data => { person.name = data })
-  //     })
-  //     sub.subscriber = subArr
-  //   }
-  //   else {
-  //     sub.subscription.map(person => {
-  //       getAvatar(person.subId).then(data => { person.avatar = data })
-  //       getName(person.subId).then(data => { person.name = data })
-  //     })
-  //   }
-  // }, [])
+  useEffect(() => {
+    //подгружаем имена и аватарки к подписчикам
+    if (isSubscriber) {
+      subArr = sub.subscriber.map(person => {
+        getAvatar(person.subId).then(data => { person.avatar = data })
+        getName(person.subId).then(data => { person.name = data })
+      })
+      sub.subscriber = subArr
+    }
+    else {
+      sub.subscription.map(person => {
+        getAvatar(person.subId).then(data => { person.avatar = data })
+        getName(person.subId).then(data => { person.name = data })
+      })
+    }
+  }, [])
 
   return (
     <Modal
