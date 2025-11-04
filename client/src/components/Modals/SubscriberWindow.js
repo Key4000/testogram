@@ -1,8 +1,7 @@
 //****************************************************
-
-//  модальное окно с подписчиками, подписками 
-
+//  модальное окно с подписчиками
 //****************************************************
+
 import React, { useEffect } from 'react'
 import { Container, Modal, ListGroup } from 'react-bootstrap';
 import { Context } from '../../index';
@@ -14,7 +13,7 @@ import Logo from '../Logo/Logo'
 import { getAvatar, getName } from "../../http/userAPI"
 
 
-const SubscriberWindow = observer(({ show, onHide,  }) => {
+const SubscriberWindow = observer(({ show, onHide }) => {
 
   //Получаем хранилище
   const { sub } = useContext(Context)
@@ -23,14 +22,14 @@ const SubscriberWindow = observer(({ show, onHide,  }) => {
 
   let subArr = []
 
-  // useEffect(() => {
-  //   //подгружаем имена и аватарки к подписчикам
-  //   subArr = sub.subscriber.map(person => {
-  //     getAvatar(person.subId).then(data => { person.avatar = data })
-  //     getName(person.subId).then(data => { person.name = data })
-  //   })
-  //   sub.setSubscriber = subArr
-  // }, [])
+  useEffect(() => {
+  //подгружаем имена и аватарки к подписчикам
+    subArr = sub.subscriber.map(person => {
+      getAvatar(person.subId).then(data => { person.avatar = data })
+      getName(person.subId).then(data => { person.name = data })
+    })
+    sub.setSubscriber = subArr
+  }, [])
 
   return (
     <Modal
@@ -41,7 +40,7 @@ const SubscriberWindow = observer(({ show, onHide,  }) => {
       <Modal.Header closeButton>
       </Modal.Header>
       <Modal.Body>
-        {/* <ListGroup>
+        {show && <ListGroup>
           {sub.subscriber.map(person =>
             <ListGroup.Item
               style={{ cursor: "pointer" }}
@@ -52,8 +51,7 @@ const SubscriberWindow = observer(({ show, onHide,  }) => {
               {person.name}
             </ListGroup.Item>
           )}
-        </ListGroup> */}
-        Подписчики
+        </ListGroup>}
       </Modal.Body>
     </Modal>
   )
