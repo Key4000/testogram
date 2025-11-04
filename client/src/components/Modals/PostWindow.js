@@ -55,6 +55,9 @@ const PostWindow = ({ show, onHide, post, avatar}) => {
           </Col>
         </Row>}
       </Modal.Body>
+      <Modal.Footer>
+            <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>  
+         </Modal.Footer>
     </Modal>
   )
 }
