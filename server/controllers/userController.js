@@ -140,7 +140,7 @@ class UserController {
 
             await user.save()
 
-            return res.json(user)
+            return 200
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
