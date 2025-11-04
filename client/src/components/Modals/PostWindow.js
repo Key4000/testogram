@@ -12,9 +12,7 @@ import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_ROUTE } from "../../utils/consts";
 
-const PostWindow = ({ show, onHide, post, avatar, visible }) => {
-
-  const [visible, setVisible] = useState(false)
+const PostWindow = ({ show, onHide, post, avatar}) => {
   //Получаем хранилища
   const { user } = useContext(Context)
   const navigate = useNavigate()
@@ -28,7 +26,7 @@ const PostWindow = ({ show, onHide, post, avatar, visible }) => {
       <Modal.Header closeButton>
       </Modal.Header>
       <Modal.Body>
-        {visible && <Row>
+        {show && <Row>
           <Col>
             <Image src={process.env.REACT_APP_API_URL + post.img} />
           </Col>
