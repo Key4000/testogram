@@ -1,6 +1,6 @@
 //****************************************************
 
-//  модальное окно с подписчиками, подписками 
+//  модальное окно с подписками 
 
 //****************************************************
 import React, { useEffect } from 'react'
@@ -14,7 +14,7 @@ import Logo from '../Logo/Logo'
 import { getAvatar, getName } from "../../http/userAPI"
 
 
-const SubscriptionWindow = observer(({ show, onHide, isSubscriber }) => {
+const SubscriptionWindow = observer(({ show, onHide }) => {
 
   //Получаем хранилище
   const { sub } = useContext(Context)
@@ -23,13 +23,13 @@ const SubscriptionWindow = observer(({ show, onHide, isSubscriber }) => {
 
   let subArr = []
 
-  // useEffect(() => {
-  //   //подгружаем имена и аватарки к подпискам
-  //   sub.subscription.map(person => {
-  //     getAvatar(person.subId).then(data => { person.avatar = data })
-  //     getName(person.subId).then(data => { person.name = data })
-  //   })
-  // }, [])
+   useEffect(() => {
+     //подгружаем имена и аватарки к подпискам
+     sub.subscription.map(person => {
+       getAvatar(person.subId).then(data => { person.avatar = data })
+       getName(person.subId).then(data => { person.name = data })
+     })
+   }, [])
 
   return (
     <Modal
@@ -40,7 +40,7 @@ const SubscriptionWindow = observer(({ show, onHide, isSubscriber }) => {
       <Modal.Header closeButton>
       </Modal.Header>
       <Modal.Body>
-        {/* <ListGroup>
+         {show && <ListGroup>
           {sub.subscription.map(person =>
             <ListGroup.Item
               style={{ cursor: "pointer" }}
@@ -51,8 +51,7 @@ const SubscriptionWindow = observer(({ show, onHide, isSubscriber }) => {
               {person.name}
             </ListGroup.Item>
           )}
-        </ListGroup> */}
-        Подписки
+        </ListGroup>}
       </Modal.Body>
     </Modal>
   )
