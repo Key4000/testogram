@@ -12,7 +12,7 @@ import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_ROUTE } from "../../utils/consts";
 
-const PostWindow = ({ show, onHide, post, avatar }) => {
+const PostWindow = ({ show, onHide, post, avatar, visible }) => {
 
   const [visible, setVisible] = useState(false)
   //Получаем хранилища
@@ -28,11 +28,11 @@ const PostWindow = ({ show, onHide, post, avatar }) => {
       <Modal.Header closeButton>
       </Modal.Header>
       <Modal.Body>
-        <Row>
+        {visible && <Row>
           <Col>
-            {visible && <Image src={process.env.REACT_APP_API_URL + post.img} />}
+            <Image src={process.env.REACT_APP_API_URL + post.img} />
           </Col>
-          {/* <Col>
+          <Col>
             <Logo src={avatar}></Logo>
             <span
               onClick={navigate(PROFILE_ROUTE + '/' + post.userId)}
@@ -54,8 +54,8 @@ const PostWindow = ({ show, onHide, post, avatar }) => {
               userId={user.user.id}
               whomId={post.userId}
             />
-          </Col> */}
-        </Row>
+          </Col>
+        </Row>}
       </Modal.Body>
     </Modal>
   )
