@@ -124,7 +124,7 @@ class UserController {
     async addImg(req, res, next) {
 
         try {
-            const { userId } = req.body
+            const { id } = req.body
 
             const { img } = req.files
 
@@ -134,7 +134,7 @@ class UserController {
             //__dirname - путь до текущей папки, '..' - возвращают на дерикторию ниже в server 
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-            const user = await User.findOne({ userId })
+            const user = await User.findOne({ id })
 
             user.img = fileName
 
