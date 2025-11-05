@@ -59,8 +59,7 @@ const Profile = observer(() => {
     setLoading(true);
     //подгружаем все подписки  
     await fetchPublication(id, page, 10).then(data => {
-      setCountPosts(data.count)
-      setPosts(data.rows)
+      setPosts(data)
     })
     setPage(prevPage => prevPage + 1);
     setLoading(false);
