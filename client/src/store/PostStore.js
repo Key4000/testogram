@@ -10,9 +10,6 @@ export default class PostStore {
 
     //посты
     this._posts = []
-    //кол-во
-    this._count = 0
-    
     //
     makeAutoObservable(this)
   }
@@ -21,16 +18,11 @@ export default class PostStore {
   setPosts(posts) {
     this._posts = posts
   }
-  setCount(num) {
-    this._count = num
-  }
   //гетеры
   get posts() {
     return this._posts
   }
-  get count() {
-    return this._count
-  }
+  
   
   
 }
