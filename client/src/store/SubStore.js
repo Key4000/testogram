@@ -21,8 +21,8 @@ export default class SubStore {
   }
 
   //сеттеры
-  setSubscriber(subscriber) {
-    this._subscriber = subscriber
+  setSubscriber(data) {
+    this._subscriber = data
   }
   setCountSubscriber(count) {
     this._countSubscriber = count

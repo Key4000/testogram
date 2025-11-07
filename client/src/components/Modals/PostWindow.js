@@ -7,7 +7,7 @@ import InputCom from '../InputCom'
 import ComList from '../ComList'
 import Like from '../Like'
 import { useContext, useState } from "react";
-import { Col, Image, Row } from "react-bootstrap";
+import { Button, Col, Image, Row } from "react-bootstrap";
 import Logo from "../Logo/Logo";
 import { useNavigate } from "react-router-dom";
 import { PROFILE_ROUTE } from "../../utils/consts";

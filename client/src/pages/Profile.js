@@ -20,6 +20,7 @@ import SubscriberWindow from '../components/Modals/SubscriberWindow'
 import SubscriptionWindow from '../components/Modals/SubscriptionWindow'
 import SideBar from '../components/SideBar';
 import { fetchPublication } from '../http/publicationAPI';
+import { getAvatar, getName } from '../http/userAPI';
 
 
 
@@ -57,9 +58,10 @@ const Profile = observer(() => {
       return null
     }; // Предотвращаем повторную загрузку
     setLoading(true);
-    //подгружаем все подписки  
+    //подгружаем все посты
     await fetchPublication(id, page, 10).then(data => {
-      setPosts(data)
+      setPosts(data.rows)
+      setCountPosts(data.count)
     })
     setPage(prevPage => prevPage + 1);
     setLoading(false);
@@ -80,16 +82,18 @@ const Profile = observer(() => {
 
     fetchSubscriber(id).then(data => {
       //берём одно значение subId, так как оно повторяется
-      bufSub = data.rows[0].subId
-      dataSub = data.rows.map(person => {
+      bufUser = data.rows[0].subId
+      dataSub = data.rows.map(data => {
         //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
-        bufUser = person.userId
-        person.userId = bufSub
-        person.subId = bufUser
+        bufSub = data.userId 
+        person.userId = bufUser
+        person.subId = bufSub
+        return person
       })
       sub.setSubscriber(dataSub)
       sub.setCountSubscriber(data.count)
     })
+
   }, [])
 
   //подгружаем подписки
