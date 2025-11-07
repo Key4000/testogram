@@ -44,16 +44,11 @@ const SubscriberWindow = observer(({ show, onHide }) => {
         {show && <ListGroup>
           {sub.subscriber.map(person =>
             <ListGroup.Item
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", display: "flex" }}
               key={person.id}
             >
               <Logo src={process.env.REACT_APP_API_URL + person.avatar}></Logo>
-              какое то не понятное поведение здесь!
-              <div
-                onClick={navigate(PROFILE_ROUTE + '/' + person.id)} 
-              >
-              {person.name}
-              </div>
+              <div style={{ marginLeft: "20px" }} >{person.name}</div>
               {console.log("inside list - ", person)}
             </ListGroup.Item>
           )}
