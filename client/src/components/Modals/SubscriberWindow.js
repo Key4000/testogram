@@ -15,8 +15,10 @@ const SubscriberWindow = observer(({ show, onHide }) => {
 
   //Получаем хранилище
   const { sub } = useContext(Context)
-
-  const navigate = useNavigate();
+  
+  const navigate = useNavigate(); 
+  const click(id) = useCallback(() => { navigate(PROFILE_ROUTE + '/' + id)
+  }, [show]) 
 
   useEffect(() => {
     //подгружаем имена и аватарки к подпискам
@@ -46,6 +48,7 @@ const SubscriberWindow = observer(({ show, onHide }) => {
             <ListGroup.Item
               style={{ cursor: "pointer", display: "flex" }}
               key={person.id}
+              onClick={click(person.id)}
             >
               <Logo src={process.env.REACT_APP_API_URL + person.avatar}></Logo>
               <div style={{ marginLeft: "20px" }} >{person.name}</div>
