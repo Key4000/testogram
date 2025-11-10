@@ -15,20 +15,16 @@ const SubscriberWindow = observer(({ show, onHide }) => {
 
   //Получаем хранилище
   const { sub } = useContext(Context)
-  
-  const navigate = useNavigate(); 
-  const click(id) = useCallback(() => { navigate(PROFILE_ROUTE + '/' + id)
-  }, [show]) 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     //подгружаем имена и аватарки к подпискам
     sub.subscriber.map(person => {
       getAvatar(person.subId).then(data => {
-        console.log("test1 - ", data)
         person.avatar = data.img
       })
       getName(person.subId).then(data => {
-        console.log("test2 - ", data)
         person.name = data.name
       })
     })
@@ -48,11 +44,14 @@ const SubscriberWindow = observer(({ show, onHide }) => {
             <ListGroup.Item
               style={{ cursor: "pointer", display: "flex" }}
               key={person.id}
-              onClick={click(person.id)}
+              onClick={() =>
+              {
+                navigate(PROFILE_ROUTE + '/' + person.subId)
+                onHide()
+              }}
             >
               <Logo src={process.env.REACT_APP_API_URL + person.avatar}></Logo>
               <div style={{ marginLeft: "20px" }} >{person.name}</div>
-              {console.log("inside list - ", person)}
             </ListGroup.Item>
           )}
         </ListGroup>}
