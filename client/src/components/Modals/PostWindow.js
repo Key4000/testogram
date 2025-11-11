@@ -6,39 +6,47 @@ import { Context } from '../../index';
 import InputCom from '../InputCom'
 import ComList from '../ComList'
 import Like from '../Like'
-import { useContext, useState } from "react";
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Col, Image, Row } from "react-bootstrap";
 import Logo from "../Logo/Logo";
-import { useNavigate } from "react-router-dom";
-import { PROFILE_ROUTE } from "../../utils/consts";
+import { getName } from "../../http/userAPI";
 
-const PostWindow = ({ show, onHide, post, avatar}) => {
+const PostWindow = ({ show, onHide, post, avatar }) => {
   //Получаем хранилища
   const { user } = useContext(Context)
-  const navigate = useNavigate()
+
+  //имя владельца поста
+  const [name, setName] = useState('')
+
+  useEffect(() => {
+    getName(post?.userId).then(data => setName(data.name))
+  }, [show])
 
   return (
     <Modal
       show={show}
       onHide={onHide}
       centered
+      size="xl"
     >
       <Modal.Header closeButton>
       </Modal.Header>
-      <Modal.Body>
-        {show && <Row>
+      <Modal.Body style={{ display: "flex" }}>
+        {show && <Row style={{ display: "flex" }}>
           <Col>
-            <Image src={process.env.REACT_APP_API_URL + post.img} />
+            <Image src={process.env.REACT_APP_API_URL + post.img} width={700} />
           </Col>
           <Col>
-            <Logo src={avatar}></Logo>
+            <Logo src={process.env.REACT_APP_API_URL + avatar}></Logo>
             <span
-              onClick={navigate(PROFILE_ROUTE + '/' + post.userId)}
               className="post-name"
+              style={{ marginRight: "40px" }}
             >
-              {post.userName}
+              {name}
             </span>
-
+            <div style={{ maxWidth: "100px", height: "auto"}} >
+              {post.text}
+            </div>
             <ComList
               postId={post.id}
             />
@@ -55,9 +63,6 @@ const PostWindow = ({ show, onHide, post, avatar}) => {
           </Col>
         </Row>}
       </Modal.Body>
-      <Modal.Footer>
-            <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>  
-         </Modal.Footer>
     </Modal>
   )
 }
