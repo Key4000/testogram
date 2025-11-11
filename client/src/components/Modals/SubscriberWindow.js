@@ -3,8 +3,8 @@
 //****************************************************
 import { Modal, ListGroup } from 'react-bootstrap';
 import { Context } from '../../index';
-import { useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
 import { PROFILE_ROUTE } from '../../utils/consts'
 import { observer } from 'mobx-react-lite'
 import Logo from '../Logo/Logo'
@@ -15,8 +15,6 @@ const SubscriberWindow = observer(({ show, onHide }) => {
 
   //Получаем хранилище
   const { sub } = useContext(Context)
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     //подгружаем имена и аватарки к подпискам
@@ -44,14 +42,9 @@ const SubscriberWindow = observer(({ show, onHide }) => {
             <ListGroup.Item
               style={{ cursor: "pointer", display: "flex" }}
               key={person.id}
-              onClick={() =>
-              {
-                navigate(PROFILE_ROUTE + '/' + person.subId)
-                onHide()
-              }}
             >
               <Logo src={process.env.REACT_APP_API_URL + person.avatar}></Logo>
-              <div style={{ marginLeft: "20px" }} >{person.name}</div>
+              <Link to={PROFILE_ROUTE + '/' + person.subId} reloadDocument style={{ marginLeft: "20px", cursor: "pointer", color: "black", textDecoration: "none" }}>{person.name}</Link>
             </ListGroup.Item>
           )}
         </ListGroup>}
