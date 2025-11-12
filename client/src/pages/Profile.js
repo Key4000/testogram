@@ -81,6 +81,8 @@ const Profile = observer(() => {
     let bufUser
 
     fetchSubscriber(id).then(data => {
+      //НАДО ВОТ ЗДЕСЬ ПОСМОТРЕТЬ, ЧТО ПОЛУЧАЕМ В data
+      console.log("subscriber data - ",data)
       //берём одно значение subId, так как оно повторяется
       bufUser = data.rows[0].subId
       dataSub = data.rows.map(data => {
