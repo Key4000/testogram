@@ -11,16 +11,9 @@ import { Col, Image, Row } from "react-bootstrap";
 import Logo from "../Logo/Logo";
 import { getName } from "../../http/userAPI";
 
-const PostWindow = ({ show, onHide, post, avatar }) => {
+const PostWindow = ({ show, onHide, post, avatar, name }) => {
   //Получаем хранилища
   const { user } = useContext(Context)
-
-  //имя владельца поста
-  const [name, setName] = useState('')
-
-  useEffect(() => {
-    getName(post?.userId).then(data => setName(data.name))
-  }, [show])
 
   return (
     <Modal
@@ -44,7 +37,7 @@ const PostWindow = ({ show, onHide, post, avatar }) => {
             >
               {name}
             </span>
-            <div style={{ maxWidth: "100px", height: "auto"}} >
+            <div style={{ maxWidth: "100px", height: "auto" }} >
               {post.text}
             </div>
             <ComList

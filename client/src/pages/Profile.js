@@ -33,13 +33,14 @@ const Profile = observer(() => {
   //для отправки поста в модальное окно
   const [sendPost, setSendPost] = useState(null)
   //-----------------------------------------------
-
   //берем id из параметра 
   const { id } = useParams()
-
   //Получаем хранилища
-  const { user, sub} = useContext(Context)
-
+  const { sub } = useContext(Context)
+  //имя пользователя
+  const [userName , setUserName] = useState("")
+  //ава пользователя
+  const [userImg , setUserImg] = useState("")
   //-----------подгружаем посты----------------------------
   //посты
   const [posts, setPosts] = useState([]);
@@ -73,21 +74,26 @@ const Profile = observer(() => {
   }, [inView]); // Запускаем эффект при изменении видимости
   //---------------------------------------------------------
 
+  //подгружаем пользователя
+  useEffect(() => {
+    getAvatar(id).then(data => {
+      setUserImg(data.img)
+    })
+    getName(id).then(data => {
+      setUserName(data.name)
+    })
+  }, [])
+
   //подгружаем подписчиков 
   useEffect(() => {
-    let bufSub
-    let person = {}
-    let dataSub = []
-    let bufUser
-
     fetchSubscriber(id).then(data => {
-      //НАДО ВОТ ЗДЕСЬ ПОСМОТРЕТЬ, ЧТО ПОЛУЧАЕМ В data
-      console.log("subscriber data - ",data)
+      if(!data) return 
       //берём одно значение subId, так как оно повторяется
-      bufUser = data.rows[0].subId
-      dataSub = data.rows.map(data => {
+      let bufUser = data.rows[0].subId
+      let dataSub = data.rows.map(data => {
+        let person = {}
         //записываем userId, который станет subId ,здесь мы меняем значения, чтобы было удобно работать 
-        bufSub = data.userId 
+        let bufSub = data.userId
         person.userId = bufUser
         person.subId = bufSub
         return person
@@ -113,11 +119,11 @@ const Profile = observer(() => {
       <Container>
         <Row>
           <Col md={4}>
-            <Logo src={process.env.REACT_APP_API_URL + user.avatar}></Logo>
+            <Logo src={process.env.REACT_APP_API_URL + userImg}></Logo>
           </Col>
           <Col md={12}>
             <Row>
-              <span>{user.user.name}</span>
+              <span>{userName}</span>
             </Row>
             <Row>
               <span>{countPosts} публикаций</span>
@@ -134,13 +140,13 @@ const Profile = observer(() => {
           {
             posts.map(publication =>
               <Image
-              
+
                 key={publication.id}
                 onClick={() => {
                   setSendPost(publication)
                   setPostVisible(true)
                 }}
-                style={{ cursor: 'pointer' , width: '600px' }}
+                style={{ cursor: 'pointer', width: '600px' }}
                 src={process.env.REACT_APP_API_URL + publication.img}
               />)
           }
@@ -150,7 +156,8 @@ const Profile = observer(() => {
           show={postVisible}
           onHide={() => setPostVisible(false)}
           post={sendPost}
-          avatar={user.avatar}
+          avatar={userImg}
+          name={userName}
         />
         <SubscriberWindow
           show={subscriberVisible}

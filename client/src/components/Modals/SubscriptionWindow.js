@@ -4,12 +4,14 @@
 
 //****************************************************
 import React, { useEffect } from 'react'
-import { Container, Modal, ListGroup } from 'react-bootstrap';
+import { Modal, ListGroup } from 'react-bootstrap';
 import { Context } from '../../index';
 import { useContext } from 'react';
 import { observer } from 'mobx-react-lite'
 import Logo from '../Logo/Logo'
 import { getAvatar, getName } from "../../http/userAPI"
+import { Link } from 'react-router-dom';
+import { PROFILE_ROUTE } from '../../utils/consts';
 
 
 const SubscriptionWindow = observer(({ show, onHide }) => {
@@ -17,13 +19,13 @@ const SubscriptionWindow = observer(({ show, onHide }) => {
   //Получаем хранилище
   const { sub } = useContext(Context)
 
-   useEffect(() => {
-     //подгружаем имена и аватарки к подпискам
-     sub.subscription.map(person => {
-       getAvatar(person.subId).then(data => { person.avatar = data.img})
-       getName(person.subId).then(data => { person.name = data.name })
-     })
-   }, [])
+  useEffect(() => {
+    //подгружаем имена и аватарки к подпискам
+    sub.subscription.map(person => {
+      getAvatar(person.subId).then(data => { person.avatar = data.img })
+      getName(person.subId).then(data => { person.name = data.name })
+    })
+  }, [show])
 
   return (
     <Modal
@@ -32,17 +34,19 @@ const SubscriptionWindow = observer(({ show, onHide }) => {
       centered
     >
       <Modal.Header closeButton>
+        ПОДПИСКИ
       </Modal.Header>
       <Modal.Body>
-         {show && <ListGroup>
+        
+        {show && <ListGroup>
           {sub.subscription.map(person =>
-<ListGroup.Item
-  style={{ cursor: "pointer" }}
-  key={person.id}
->
-  <Logo src={person.avatar}></Logo>
-  <Link to={PROFILE_ROUTE + '/' + person.subId} reloadDocument style={{ marginLeft: "20px", cursor: "pointer", color: "black", textDecoration: "none" }}>{person.name}</Link>
-</ListGroup.Item>
+            <ListGroup.Item
+              style={{ cursor: "pointer", display: "flex" }}
+              key={person.id}
+            >
+              <Logo src={process.env.REACT_APP_API_URL + person.avatar}></Logo>
+              <Link to={PROFILE_ROUTE + '/' + person.subId} reloadDocument style={{ marginLeft: "20px", cursor: "pointer", color: "black", textDecoration: "none" }}>{person.name}</Link>
+            </ListGroup.Item>
           )}
         </ListGroup>}
       </Modal.Body>

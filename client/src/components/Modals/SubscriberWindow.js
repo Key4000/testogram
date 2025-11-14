@@ -35,6 +35,7 @@ const SubscriberWindow = observer(({ show, onHide }) => {
       centered
     >
       <Modal.Header closeButton>
+        ПОДПИСЧИКИ
       </Modal.Header>
       <Modal.Body>
         {show && <ListGroup>
