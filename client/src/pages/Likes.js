@@ -4,51 +4,57 @@
 
 //****************************************************
 //все что с реактом
-import React from 'react'
-import { Container } from 'react-bootstrap';
+import React, { useEffect } from 'react'
+import { Container, ListGroup } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
 //запросы
 import { fetchLike } from '../http/publicationAPI'
-import { getOne } from '../http/userAPI'
+import { getAvatar, getName } from '../http/userAPI'
 
 
 //роуты 
 import { } from '../utils/consts'
+import SideBar from '../components/SideBar';
 
 const Likes = observer(() => {
 
-  const [likes, setLikes] = useState(null)
+  const [likes, setLikes] = useState([])
 
   const { user } = useContext(Context)
 
-  // useEffect(() => {
-  //   fetchLike(user.user.id).then(likes => {
-  //     //подгружаем все лайки, что поставили данному пользователю
-  //     likes.map(like => {
-  //       //здесь запрос на пользователя с like.userId
-  //       getOne(like.userId).then(person => {
-  //         //добавляем в объект с лайками имя того, кто поставил лайк 
-  //         like.name = person.name
-  //       })
-  //     })
-  //   }
-  // }, [])
+  useEffect(() => {
+    fetchLike(user.user.id).then(data => {
+      let arr = []
+      //подгружаем все лайки, что поставили данному пользователю
+      data.rows.map(like => {
+        let obj = {}
+        getName(like.userId).then(data => obj.name = data)
+        getAvatar(like.userId).then(data => obj.avatar = data)
+        arr.push(obj)
+      })
+      setLikes(arr)
+    })
+  }, [])
 
   return (
-    <Container>
-      <ListGroup>
-        {likes.map(like =>
-          <ListGroup.Item
-            style={{ cursor: "pointer" }}
-            key={like.id}
-          >
-            {like.name}
-          </ListGroup.Item>
-        )}
-      </ListGroup>
-    </Container>
+    <div>
+      <SideBar />
+      <Container>
+        <ListGroup>
+          {likes.map(person =>
+            <ListGroup.Item
+              style={{ cursor: "pointer" }}
+              key={person.id}
+            >
+              {console.log("person.name - ", person.name) }
+            <div>{person.name}</div>
+            </ListGroup.Item>
+          )}
+        </ListGroup>
+      </Container>
+    </div>
   )
 })
 
