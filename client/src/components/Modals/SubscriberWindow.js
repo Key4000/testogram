@@ -20,10 +20,10 @@ const SubscriberWindow = observer(({ show, onHide }) => {
     //подгружаем имена и аватарки к подпискам
     sub.subscriber.map(person => {
       getAvatar(person.subId).then(data => {
-        person.avatar = data.img
+        person.avatar = data
       })
       getName(person.subId).then(data => {
-        person.name = data.name
+        person.name = data
       })
     })
   }, [show])

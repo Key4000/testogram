@@ -23,7 +23,7 @@ const App = observer(() => {
       //добавляем юзера в хранилище
       user.setUser(data)
       user.setIsAuth(true)
-      getAvatar(user.user.id).then(data => user.setAvatar(data.img))
+      getAvatar(user.user.id).then(data => user.setAvatar(data))
     }).finally(() => setLoading(false))
   }, [])
 

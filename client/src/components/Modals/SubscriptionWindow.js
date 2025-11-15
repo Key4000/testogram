@@ -22,8 +22,8 @@ const SubscriptionWindow = observer(({ show, onHide }) => {
   useEffect(() => {
     //подгружаем имена и аватарки к подпискам
     sub.subscription.map(person => {
-      getAvatar(person.subId).then(data => { person.avatar = data.img })
-      getName(person.subId).then(data => { person.name = data.name })
+      getAvatar(person.subId).then(data => { person.avatar = data})
+      getName(person.subId).then(data => { person.name = data})
     })
   }, [show])
 

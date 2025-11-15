@@ -7,23 +7,23 @@
 import React from 'react'
 import { Container, Card, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
-import { fetchUser } from '../http/userAPI'
+import { Link} from 'react-router-dom'
+import { fetchLink, getName } from '../http/userAPI'
 import { observer } from 'mobx-react-lite'
 import { PROFILE_ROUTE } from '../utils/consts'
 import SideBar from '../components/SideBar';
 
 const Search = observer(() => {
-  //
-  const [search, setSearch] = useState('')
-  const [person, setPerson] = useState(null)
 
-  const navigate = useNavigate()
+  const [search, setSearch] = useState('')
+  const [id, setId] = useState(-1)
+  const [name, setName] = useState('')
 
   const click = async () => {
     try {
-      fetchUser(search).then(data => {
-        setPerson(data)
+      fetchLink(search).then(data => {
+        setId(data[0].id)
+        getName(data[0].id).then(data => setName(data))
       })
     } catch (e) {
       alert(e.response.data.message)
@@ -51,11 +51,11 @@ const Search = observer(() => {
         </Form>
         {search ?
           <Card>
-            <h2>
+            <h4>
               То, что вы искали:
-            </h2>
+            </h4>
             <div>
-              <span onClick={navigate(PROFILE_ROUTE + '/' + person.id)}>{person.name}</span>
+              <Link to={PROFILE_ROUTE + '/' + id} reloadDocument style={{ marginLeft: "20px", cursor: "pointer", color: "black", textDecoration: "none" }}>{name}</Link>
             </div>
           </Card>
           :

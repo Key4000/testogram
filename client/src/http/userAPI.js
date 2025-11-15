@@ -25,11 +25,10 @@ export const check = async () => {
 }
 
 //получить всех пользователей, по имени 
-export const fetchUser = async (name) => {
-  const {data} = await $authHost.get('api/user/', {params:{
-    name
-  }})
+export const fetchLink = async (name) => {
+  const {data} = await $authHost.get('api/user/link/' + name)
 
+  console.log("data-API--",data)
   return data
 }
 

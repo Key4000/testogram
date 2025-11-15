@@ -77,10 +77,10 @@ const Profile = observer(() => {
   //подгружаем пользователя
   useEffect(() => {
     getAvatar(id).then(data => {
-      setUserImg(data.img)
+      setUserImg(data)
     })
     getName(id).then(data => {
-      setUserName(data.name)
+      setUserName(data)
     })
   }, [])
 

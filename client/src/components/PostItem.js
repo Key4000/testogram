@@ -59,8 +59,8 @@ const [isButton, setIsButton] = useState(false)
  }
 
  useEffect(() => { 
-    getAvatar(publication.userId).then(data => setAvatar(data.img))
-    getName(publication.userId).then(data => setName(data.name))
+    getAvatar(publication.userId).then(data => setAvatar(data))
+    getName(publication.userId).then(data => setName(data))
     fetchCom(publication.id).then(data => {
       setCom(data.rows)
       setCountCom(data.count)

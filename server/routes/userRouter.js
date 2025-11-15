@@ -27,6 +27,8 @@ router.get('/img/:id', userController.getImg)
 router.get('/name/:id', userController.getName)
 //получить имя пользователя по id
 router.post('/img', userController.addImg)
+//получить id пользователя по имени
+router.get('/link/:name', userController.getLink)
 
 
 

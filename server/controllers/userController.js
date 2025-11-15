@@ -102,9 +102,7 @@ class UserController {
 
         const user = await User.findOne({ where: { id } })
 
-        const avatar = user.get('img')
-
-        return res.json({ img: avatar })
+        return res.json(user.img)
     }
 
     //получить имя пользователя по id 
@@ -114,10 +112,7 @@ class UserController {
 
         const user = await User.findOne({ where: { id } })
 
-        const userName = user.get('name')
-
-        return res.json({ name: userName })
-
+        return res.json(user.name)
 
     }
     //добавить фото профиля
@@ -144,6 +139,18 @@ class UserController {
         } catch (e) {
             next(ApiError.badRequest(e.message))
         }
+    }
+    //получить все id пользователей для ссылки по имени 
+    async getLink(req, res) {
+
+        const { name } = req.params
+
+        console.log("name - ", name)
+
+        const user = await User.findAll({attributes:['id'], where: { name } })
+
+        return res.json(user)
+
     }
 
 }
