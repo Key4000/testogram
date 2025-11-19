@@ -35,25 +35,31 @@ const Likes = observer(() => {
         arr.push(obj)
       })
       setLikes(arr)
+      
     })
   }, [])
 
   return (
     <div>
       <SideBar />
-      <Container>
+      {/* <Container>
         <ListGroup>
+          {console.log("LIKES - ", likes) }
           {likes.map(person =>
             <ListGroup.Item
               style={{ cursor: "pointer" }}
               key={person.id}
             >
-              {console.log("person.name - ", person.name) }
+              {console.log("person - ", person) }
             <div>{person.name}</div>
             </ListGroup.Item>
           )}
         </ListGroup>
-      </Container>
+      </Container> */}
+      {likes.map(person =>
+        <div>{console.log("person - ", person.name)}</div>
+      )}
+
     </div>
   )
 })

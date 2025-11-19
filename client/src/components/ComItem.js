@@ -5,29 +5,21 @@
 //****************************************************
 //реакт
 import React from 'react'
-import { Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom'
 //Самодельные компоненты 
 import Logo from "../components/Logo/Logo"
  
 
-const ComItem  = ({avatar, name, text}) => {
+const ComItem  = ({name, text}) => {
 
 const navigate = useNavigate() 
 
 return (
-<>
  <Row>
-   <Logo 
-     src={avatar}
-     style={{ cursor: "pointer" }}
-   />
-   {name}
+    <Col md={1}>{name} -</Col>
+    <Col md={10}>{text}</Col>
  </Row>
- <Row>
-    {text} 
- </Row>
-</>
 )
 
 }

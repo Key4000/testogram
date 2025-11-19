@@ -40,6 +40,7 @@ const PostWindow = ({ show, onHide, post, avatar, name }) => {
             <div style={{ maxWidth: "100px", height: "auto" }} >
               {post.text}
             </div>
+            {console.log("post.id - ", post.id)}
             <ComList
               postId={post.id}
             />

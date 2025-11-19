@@ -5,7 +5,7 @@
 //реакт 
 import { Image, Row } from 'react-bootstrap';
 import { useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { observer } from 'mobx-react-lite'
 //картинки
 import home from '../assets/home.png'
@@ -34,12 +34,9 @@ const SideBar = observer(() => {
       <Row>
         <Image onClick={() => navigate(LIKE_ROUTE)} height={30} width={30} src={like} style={{ cursor: 'pointer' }} />
       </Row>
-      <Row>
-        <span onClick={() => navigate(PROFILE_ROUTE + '/' + user.user.id)}>
-          <Logo src={process.env.REACT_APP_API_URL + user.avatar} />
-        </span>
-      </Row>
-
+      <Link to={PROFILE_ROUTE + '/' + user.user.id} reloadDocument style={{ cursor: "pointer" , textDecoration: "none" }}>
+        <Logo src={process.env.REACT_APP_API_URL + user.avatar} />
+      </Link>
     </div>
   )
 })

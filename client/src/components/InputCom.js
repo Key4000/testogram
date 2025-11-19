@@ -24,13 +24,14 @@ const send = async () => {
        text: com, 
        whomId: whomId
      })
+     window.location.reload();
    } catch(e) {
      alert(e.response.data.message)
    }
  }
 
 return (
-<>
+<div style={{ display: 'flex' }}>
  <Form.Control
    placeholder="Оставьте комментарий..."
    value={com}
@@ -42,9 +43,9 @@ return (
     style={{ width: 'Auto' }}
     variant="outline-dark"
     onClick={send}>
- Опубликовать
+  Опубликовать
  </Button>} 
-</>
+</div>
 )
 }
 

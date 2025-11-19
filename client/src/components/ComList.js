@@ -21,27 +21,31 @@ const ComList = observer(({ postId }) => {
   useEffect(() => {
     //запрос на массив комментов
     fetchCom(postId).then(comments => {
-      //пробегаем по массиву и делаем запрос по конкретному комменту
+      let arr = []
       comments.map(comment => {
-        //добавляем аватар к объекту  
-        getAvatar(comment.userId).then(data => { comment.avatar = data })
-        //добавляем имя к объекту 
-        getName(comment.userId).then(data => { comment.name = data })
-        //добавляем улучшенный объект в массив 
-        coms.push(comment)
+        let obj = comment
+        getAvatar(comment.userId).then(data => { obj.avatar = data })
+        getName(comment.userId).then(data => { obj.userName = data })
+        arr.push(obj)
       })
+      setComs(arr)
     })
   }, [])
 
   return (
-    <Row>
+    <Row style={{width: ''}}>
+    
       {coms.map(com => {
+        
+        {console.log('coms - ', coms)}
         <ComItem
           avatar={com.avatar}
           name={com.name}
           text={com.text}
         />
-      })
+      }
+        
+      )
       }
     </Row>)
 })
