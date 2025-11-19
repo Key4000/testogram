@@ -33,18 +33,14 @@ const ComList = observer(({ postId }) => {
   }, [])
 
   return (
-    <Row style={{width: ''}}>
-    
-      {coms.map(com => {
-        
-        {console.log('coms - ', coms)}
+    <Row style={{ width: '' }}>
+
+      {coms.map(com =>
         <ComItem
           avatar={com.avatar}
           name={com.name}
           text={com.text}
         />
-      }
-        
       )
       }
     </Row>)

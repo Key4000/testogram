@@ -5,6 +5,7 @@
 //****************************************************
 //все что с реактом
 import React, { useEffect } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { Container, ListGroup } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { observer } from 'mobx-react-lite'
@@ -26,39 +27,34 @@ const Likes = observer(() => {
 
   useEffect(() => {
     fetchLike(user.user.id).then(data => {
-      let arr = []
-      //подгружаем все лайки, что поставили данному пользователю
-      data.rows.map(like => {
-        let obj = {}
-        getName(like.userId).then(data => obj.name = data)
-        getAvatar(like.userId).then(data => obj.avatar = data)
-        arr.push(obj)
-      })
-      setLikes(arr)
-      
+      setLikes(data.rows)
+      // let arr = []
+      // //подгружаем все лайки, что поставили данному пользователю
+      // data.rows.map(like => {
+      //   let obj = {}
+      //   getName(like.userId).then(data => obj.name = data)
+      //   getAvatar(like.userId).then(data => obj.avatar = data)
+      //   arr.push(obj)
+      // })
+      // setLikes(arr)
     })
   }, [])
-
   return (
     <div>
       <SideBar />
-      {/* <Container>
+      <Container>
         <ListGroup>
-          {console.log("LIKES - ", likes) }
           {likes.map(person =>
             <ListGroup.Item
               style={{ cursor: "pointer" }}
               key={person.id}
             >
-              {console.log("person - ", person) }
-            <div>{person.name}</div>
+              {console.log('test - ', person)}
+              {person.id}
             </ListGroup.Item>
           )}
         </ListGroup>
-      </Container> */}
-      {likes.map(person =>
-        <div>{console.log("person - ", person.name)}</div>
-      )}
+      </Container>
 
     </div>
   )
