@@ -17,7 +17,7 @@ class LikeController {
   async getAll(req, res){
     const { whomId } = req.query
     
-    const like = await Like.findAndCountAll({
+    const like = await Like.findAll({
         where: { whomId }
     })
     
