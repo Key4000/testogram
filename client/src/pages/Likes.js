@@ -21,30 +21,32 @@ import SideBar from '../components/SideBar';
 
 const Likes = observer(() => {
 
-  const [likes, setLikes] = useState([])
+  const [likes, setLikes] = useState(null)
 
   const { user } = useContext(Context)
 
   useEffect(() => {
     fetchLike(user.user.id).then(data => {
-      setLikes(data.rows)
-      // let arr = []
-      // //подгружаем все лайки, что поставили данному пользователю
-      // data.rows.map(like => {
-      //   let obj = {}
-      //   getName(like.userId).then(data => obj.name = data)
-      //   getAvatar(like.userId).then(data => obj.avatar = data)
-      //   arr.push(obj)
-      // })
-      // setLikes(arr)
+      setLikes(data)
     })
   }, [])
+
+  useEffect(() => {
+    if (likes) {
+      likes.map(like => {
+        getName(like.userId).then(data => like.name = data)
+        getAvatar(like.userId).then(data => like.avatar = data)
+
+      })
+    }
+  }, [])
+
   return (
     <div>
       <SideBar />
       <Container>
         <ListGroup>
-          {likes.map(person =>
+          {likes && likes.map(person =>
             <ListGroup.Item
               style={{ cursor: "pointer" }}
               key={person.id}
